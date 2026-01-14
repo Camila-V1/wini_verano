@@ -1,8 +1,6 @@
 //---------------------------------------------------------------------------
-
 #include <vcl.h>
 #pragma hdrstop
-
 #include "PrincipalF.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -23,7 +21,6 @@ void __fastcall TForm1::Button2Click(TObject *Sender)
 {
    String d =Edit1->Text;
 M->new_espacio(AnsiString(d).c_str());
-
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button3Click(TObject *Sender)
@@ -39,7 +36,7 @@ void __fastcall TForm1::Button4Click(TObject *Sender)
 	 Canvas->Brush->Color = clBtnFace;
    Canvas->FillRect(Canvas->ClipRect);
    //	M->ImprimirP_DE_A_A_B(Form1->Color,Canvas,800,20,StrToInt(d),StrToInt(p));
-M->ImprimirP_DE_A_A_B(Form1->Color, Canvas, 450, 20, StrToInt(d), StrToInt(p));
+M->MostrarMemoriaDesplazada(Form1->Color, Canvas, 450, 20, StrToInt(d), StrToInt(p));
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button5Click(TObject *Sender)
@@ -48,9 +45,7 @@ void __fastcall TForm1::Button5Click(TObject *Sender)
 	String p= Edit6->Text;
 	String v=  Edit7->Text;
 
-
  M->poner_dato(StrToInt(AnsiString(d).c_str()),AnsiString(p).c_str(),StrToInt(AnsiString(v).c_str()));
-
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button6Click(TObject *Sender)

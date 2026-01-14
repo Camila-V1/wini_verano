@@ -14,7 +14,7 @@ const int TamanoCeldaX = 65;
 const int TamanoCeldaY = 30;
 
 #ifndef MAX
-#define MAX 50
+#define MAX 6
 #endif
 const int NULO = -1;
 struct NodoMem {
