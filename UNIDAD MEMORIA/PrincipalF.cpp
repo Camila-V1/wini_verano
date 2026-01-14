@@ -39,7 +39,7 @@ void __fastcall TForm1::Button4Click(TObject *Sender)
 	 Canvas->Brush->Color = clBtnFace;
    Canvas->FillRect(Canvas->ClipRect);
    //	M->ImprimirP_DE_A_A_B(Form1->Color,Canvas,800,20,StrToInt(d),StrToInt(p));
-M->MostrarMemoriaDesplazada(Form1->Color, Canvas, 450, 20, StrToInt(d), StrToInt(p));
+M->ImprimirP_DE_A_A_B(Form1->Color, Canvas, 450, 20, StrToInt(d), StrToInt(p));
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button5Click(TObject *Sender)
@@ -53,3 +53,19 @@ void __fastcall TForm1::Button5Click(TObject *Sender)
 
 }
 //---------------------------------------------------------------------------
+void __fastcall TForm1::Button6Click(TObject *Sender)
+{
+	//libres
+    int cantLibres = M->Espacio_Disponible();
+	Edit8->Text = IntToStr(cantLibres);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button7Click(TObject *Sender)
+{
+	   // ocupados
+       int cantOcupados = M->Espacio_ocupado();
+	Edit9->Text = IntToStr(cantOcupados);
+}
+//---------------------------------------------------------------------------
+
