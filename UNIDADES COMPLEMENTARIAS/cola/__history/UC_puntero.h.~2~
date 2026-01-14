@@ -1,0 +1,28 @@
+//---------------------------------------------------------------------------
+
+#ifndef UC_punteroH
+#define UC_punteroH
+//---------------------------------------------------------------------------
+struct Nodop {
+	int dato;
+	Nodop* sig;
+};
+
+class ptr_cola {
+	private:
+	Nodop* ini;
+	Nodop* fin;
+	int cant;
+
+	public:
+	ptr_cola();
+	bool vacio();
+	int recupera(Nodop* d);
+	Nodop* primero();
+	Nodop* ultimo();
+	void Meter(int e);
+	void Sacar(int &e);
+	int frente();
+	int final();
+};
+#endif

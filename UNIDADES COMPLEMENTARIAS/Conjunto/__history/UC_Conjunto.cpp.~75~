@@ -1,0 +1,158 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+#include <stdlib.h> // Para rand() y srand()
+#include <time.h>
+#include "UC_Conjunto.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+void conjunto::crear(){
+for (int i=0; i <=m; i++) {
+   elemento [i]=0;
+
+}
+longitud=0;
+}
+ bool conjunto::vacio(){
+ return (longitud==0);
+ }
+ void Pintado(int posX, int posY, String cad, TColor color, TCanvas *Canvas){
+int TamanoCelda = 35;
+int TamanoCeldaX = 80;
+int TamanoCeldaY = 35;
+	//           x1  y1    x2                   y2
+	TRect rect(posX,posY,posX+TamanoCeldaX,posY+TamanoCeldaY);
+	Canvas->Brush->Color = color;
+	Canvas->FillRect(rect);
+
+	Canvas->TextOutW(posX,posY+3,cad);
+
+}
+
+void conjunto::imprimir(TColor FormColor, TCanvas *Canvas){
+int TamanoCelda = 35;
+int TamanoCeldaX = 80;
+int TamanoCeldaY = 35;
+
+int	posX = 200;
+int	posY = 800;
+int auxX = posX;
+int auxY = posY;
+
+	if (!vacio()) {
+
+			//DIBUJAMOS CABECERA
+			Pintado(posX,posY,"Lista",FormColor,Canvas);
+			posX= auxX;
+			posY+= TamanoCeldaY;
+				  int t=-2;
+			Direccion x = 1;
+			Pintado(posX,posY,"´{ ",FormColor,Canvas);
+			posX+=40;
+			while (x<MAX){
+
+				if (elemento[x]==1) {
+                   Pintado(posX,posY,IntToStr(x),FormColor,Canvas);
+						posX+=80;
+
+				}
+
+
+			x++;
+				if (elemento[x] == 1&&x+1!=longitud) {
+				Pintado(posX,posY,",",FormColor,Canvas);
+				posX+=40;
+				}
+
+			}
+			Pintado(posX,posY,"}",FormColor,Canvas);
+			posX+=40;
+	}else{
+    Pintado(posX,posY,"Lista Vacia",FormColor,Canvas);
+			posX= auxX;
+			posY+= TamanoCeldaY;
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+  int conjunto::cardinal(){
+
+  return longitud;
+  }
+	int conjunto::ordinal(int e)   {
+	 int r=0;
+	 for (int i = 0; i <= MAX; i++) {
+	 if (elemento[i]!=0) {
+	 r+=1;
+	  if (e==i) {
+       return r;
+	  }
+	 }
+
+	 }
+     return r;
+	}
+	int conjunto::generarNumeroAleatorio() {
+	srand(time(0)); // Inicializa el generador de números aleatorios
+	int min = 1; // Límite inferior del rango
+	int max = longitud; // Límite superior del rango
+	int num = rand() % (max - min + 1) + min;
+	return num;
+}
+
+   int conjunto::muestrea(){
+	int r=0;
+	int e=0;  int l=conjunto::generarNumeroAleatorio() ;int i=0;
+while (i<=MAX||r==l ){
+
+  if (elemento[i]!=0) {
+	  r+=1;
+	  if (r==l) {
+		   return i;
+	  }
+  }  i++;
+}
+return e;
+  }
+
+
+
+
+	 bool conjunto:: pertenece(int e){
+		if (elemento[e]==0) {
+				  return false;
+		}
+
+	 return true;
+	 }
+	 int conjunto::getvalor(int x){
+     return elemento[x];
+	 }
+ void conjunto::inserta (int e ){
+ if (pertenece(e)==false) {
+ elemento[e]=1;
+ int    x= elemento[e];
+ longitud+=1;
+
+ }
+ }
+   void conjunto::suprime(int e){
+   if (pertenece(e)) {
+			elemento[e]=0;
+			longitud-=1;
+   }
+   }
+   int conjunto::primero(){
+   return elemento[0];
+   }
+

@@ -1,0 +1,113 @@
+﻿#pragma hdrstop
+#include "ColaConPilas.h"
+#pragma package(smart_init)
+
+colaConPilas::colaConPilas(CSmemoria* mem) {
+    entrada = new pilaM(mem);
+    salida = new pilaM(mem);
+}
+
+bool colaConPilas::vacia() {
+    return entrada->Vacia() && salida->Vacia();
+}
+
+void colaConPilas::meter(int valor) {
+    entrada->Meter(valor);
+}
+
+void pasarPila(pilaM* origen, pilaM* destino) {
+    dir temp;
+    while (!origen->Vacia()) {
+        origen->Sacar(temp);
+        destino->Meter(temp);
+    }
+}
+
+bool colaConPilas::sacar(int& valor) {
+    if (salida->Vacia()) {
+        pasarPila(entrada, salida);
+    }
+    if (salida->Vacia()) return false;
+
+    dir temp;
+    salida->Sacar(temp);
+    valor = temp;
+    return true;
+}
+
+void colaConPilas::imprimir(TColor color, TCanvas* canvas) {
+    const int TamanoCeldaX = 60;
+    const int TamanoCeldaY = 30;
+    const int xInicio = 300;
+    const int y = 300;
+
+    // Unificar elementos: pasar todo de entrada a salida
+    if (salida->Vacia()) {
+        pasarPila(entrada, salida);
+    }
+
+    int direcciones[MAX];
+    int dir = salida->pe;
+    int n = 0;
+    while (dir != NULO && n < MAX) {
+        direcciones[n++] = dir;
+        dir = salida->Cm->obtenerDato(dir, sigNL);
+    }
+
+    int x = xInicio;
+    for (int i = n - 1; i >= 0; i--) {
+        int dato = salida->Cm->obtenerDato(direcciones[i], elementNL);
+
+        int x1 = x;
+        int y1 = y;
+        int x2 = x + TamanoCeldaX;
+        int y2 = y + TamanoCeldaY;
+
+        canvas->Brush->Color = color;
+        canvas->Pen->Color = clBlack;
+
+        // Dibujar rectángulo abierto arriba y abajo
+        canvas->MoveTo(x1, y1); // izquierda
+        canvas->LineTo(x1, y2); // vertical izquierda
+        canvas->MoveTo(x2, y1);
+        canvas->LineTo(x2, y2); // vertical derecha
+
+        // Escribir valor
+        canvas->TextOutW(x1 + 5, y1 + 5, IntToStr(dato));
+
+        x += TamanoCeldaX;
+    }
+
+    // Etiquetas
+    if (n > 0) {
+        canvas->TextOutW(xInicio - 40, y + 5, "Frente →");
+        canvas->TextOutW(x - 20, y + 5, "← Final");
+    } else {
+        canvas->TextOutW(xInicio, y, "Cola vacía");
+    }
+}
+
+String colaConPilas::imprimirComoCola() {
+    if (salida->Vacia()) {
+        pasarPila(entrada, salida);
+    }
+
+    String resultado = "[";
+    int direcciones[MAX];
+    int dir = salida->pe;
+    int n = 0;
+    while (dir != NULO && n < MAX) {
+        direcciones[n++] = dir;
+        dir = salida->Cm->obtenerDato(dir, sigNL);
+    }
+
+    for (int i = n - 1; i >= 0; i--) {
+        int dato = salida->Cm->obtenerDato(direcciones[i], elementNL);
+        resultado += IntToStr(dato);
+        if (i > 0) resultado += ", ";
+    }
+
+    resultado += "]";
+    return resultado;
+}
+

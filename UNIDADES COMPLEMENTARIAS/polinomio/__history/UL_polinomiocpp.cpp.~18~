@@ -1,0 +1,242 @@
+﻿//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+	#include "Umemoria.h"
+#include "UL_polinomiocpp.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+
+
+// Archivo: UL_polinomiocpp.cpp
+
+void polinomioL::poner_termino2(int coef, int exp) {
+    if (coef == 0) {
+        return; // No hacer nada si el coeficiente es 0
+    }
+
+    // Paso 1: Asegurarse de que la lista sea lo suficientemente grande.
+    // El grado del polinomio es (longitud - 1).
+    int grado_actual = ls->getlongitud() - 1;
+    while (exp > grado_actual) {
+        ls->inserta_ultimo(0); // Añadir ceros hasta alcanzar el tamaño necesario
+        grado_actual++;
+    }
+
+    // Paso 2: Encontrar la dirección (el nodo) en la posición del exponente.
+    direccion d = ls->primero();
+    for (int i = 0; i < exp; i++) {
+        d = ls->siguiente(d);
+        if (d == NULO) {
+           // Esto es una salvaguarda, no debería ocurrir si la lógica de expansión es correcta.
+           return;
+        }
+    }
+
+    // Paso 3: Modificar el coeficiente en esa posición.
+    // Se suma el nuevo coeficiente al que ya existía.
+    int coef_actual = ls->recupera(d);
+    ls->modifica(d, coef_actual + coef);
+
+    // Opcional: Si el término de mayor grado se vuelve cero, se podría
+    // acortar la lista para mantener el grado correcto.
+    if (exp == ls->getlongitud() - 1 && ls->recupera(ls->fin()) == 0) {
+        // Lógica para eliminar términos finales con coeficiente cero...
+    }
+}
+
+ polinomioL::polinomioL(){
+ //CSmemoria* M=new  CSmemoria;
+//ls= new Lista(M); //ver el constructor de la clase lista a usar
+//ls= new Vlista();
+ }
+
+ polinomioL::polinomioL(CSmemoria* M) {
+    ls = new Lista(M);
+    ls->inserta_primero(0); // Coeficiente para x^0
+    ls->inserta_ultimo(0);  // Grado del polinomio es 0
+}
+
+ int polinomioL::exponente(int i){
+
+int dir=BuscarTerminoN(i);
+
+if (dir!=NULO) {
+int x =  ls->siguiente(dir);
+ x=ls->recupera(x);
+			 return x;
+}
+ // Retorna el exponente del t�rmino
+ }
+   void  polinomioL::crear(CSmemoria* M){
+
+   //	ls= new Lista(M); //ver el constructor de la clase lista a usar
+//ls = new ptrlista();
+//ls= new Vlista();
+   }
+int polinomioL::BuscarExponente(int e){
+
+				int dir =ls->siguiente(ls->primero());
+
+				 int x,q;
+
+				 q=ls->recupera(dir);
+				  int direxp=-1;
+			 if (dir!=NULO) {
+
+						 while (dir!=NULO&&direxp==-1&&dir<=ls->fin())
+							{
+									   if (dir<=ls->fin()) {
+									  if (ls->recupera(dir)==e) {
+									return  direxp=dir;}
+
+											 dir=ls->siguiente(ls->siguiente(dir));
+									}
+
+
+			  }
+						   return direxp;
+							}  return NULO;
+
+
+   }
+
+
+   int polinomioL::BuscarTerminoN(int e){
+   int dir=ls->primero();
+   int nt=0;
+   if (dir!=-1) {
+	   int dirter=-1;
+	   while (dir!=NULO&&dirter==-1) {
+		   nt=nt+1;
+		   if (nt==e) {
+					 dirter=dir;
+		   }
+			dir=ls->siguiente(ls->siguiente(dir));
+	   }return dirter;
+   }else return -1;
+
+   }
+   bool polinomioL::EsCero(){
+   return (ls->getlongitud());
+   }
+
+   // Archivo: UL_polinomiocpp.cpp
+
+int polinomioL::Grado() {
+    if (ls->vacia()) {
+        return -1; // O manejar como un error
+    }
+    return ls->recupera(ls->fin());
+}
+
+ // Archivo: UL_polinomiocpp.cpp
+
+int polinomioL::coeficiente(int exp) {
+    // Si el exponente solicitado es mayor que el grado, su coeficiente es 0.
+    if (exp > Grado() || exp < 0) {
+        return 0;
+    }
+
+    // Encontrar el nodo en la posición 'exp'
+    direccion d = ls->primero();
+    for (int i = 0; i < exp; i++) {
+        d = ls->siguiente(d);
+    }
+    return ls->recupera(d);
+}
+	void polinomioL::AsignarCoeficiente(int coef, int exp){
+	int dir = BuscarExponente(exp);
+	if (dir!=-1) {
+		int dirCoef=ls->anterior(dir);
+		ls->modifica(dirCoef,coef);
+		if (coef==0) {
+			ls->suprime(dir);
+			ls->suprime(dirCoef);
+
+		}
+    }
+	}
+
+	void polinomioL::poner_termino(int coef, int exp){
+	int direxp = BuscarExponente(exp);
+	if (direxp!=-1) {
+		int dirCoef = ls->anterior(direxp);
+		ls->modifica(dirCoef,ls->recupera((dirCoef))+coef);
+		if (ls->recupera(dirCoef)==0) {
+			ls->suprime(direxp);
+			ls->suprime(dirCoef);
+		}
+	} else{
+	if (coef!=0) {
+	   ls->inserta_ultimo(exp);
+		   ls->insertar(ls->fin(),coef);
+	}
+
+	}
+	}
+
+
+
+// Archivo: UL_polinomiocpp.cpp
+
+int polinomioL::numero_terminos() {
+    if (ls->vacia()) {
+        return 0;
+    }
+    int contador = 0;
+    direccion d = ls->primero();
+    while (d != NULO) {
+        if (ls->recupera(d) != 0) {
+            contador++;
+        }
+        d = ls->siguiente(d);
+    }
+    return contador;
+}
+	 void polinomioL::ponercero(){
+	 int p=ls->primero();
+	 while (ls->longitud){
+	 ls->suprime(p);
+	 p=ls->siguiente(p);
+
+	 }
+	 }
+void polinomioL::sumar(polinomioL* p1, polinomioL* p2){
+	ponercero();  int ex,co;
+	for (int i = 0; i=numero_terminos(); i++) {
+	ex= p1->exponente(i);
+	co=p1->coeficiente(ex);
+	poner_termino(co,ex);
+	}  for (int i = 0; i=numero_terminos(); i++) {
+	ex= p2->exponente(i);
+	co=p2->coeficiente(ex);
+	poner_termino(co,ex);
+	}
+}
+void polinomioL::restar(polinomioL* p1, polinomioL* p2){
+ponercero();
+	 int ex,co;
+	for (int i = 0; i=numero_terminos(); i++) {
+	ex= p1->exponente(i);
+	co=p1->coeficiente(ex);
+	poner_termino(co,ex);
+	}  for (int i = 0; i=numero_terminos(); i++) {
+	ex= p2->exponente(i);
+	co=p2->coeficiente(ex)*-1;
+	poner_termino(co,ex);
+	}
+}
+void polinomioL::imprimir2(TColor FormColor, TCanvas *Canvas, int x,int y){
+
+ls->imprimir2(FormColor,Canvas,x,y);
+
+}
+void polinomioL::imprimir(TColor FormColor, TCanvas *Canvas){
+
+ls->imprimir2(FormColor,Canvas,200,700);
+
+}
+   void polinomioL::vaciar(){
+   ls->elimLista();
+   }

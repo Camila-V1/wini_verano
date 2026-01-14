@@ -1,0 +1,59 @@
+//---------------------------------------------------------------------------
+
+#ifndef UPilaPersistenteH
+#define UPilaPersistenteH
+//---------------------------------------------------------------------------
+#include <vcl.h> // Para String, TCanvas, TColor, TStringList
+#include <string>
+#include <vector>  // Incluido por si acaso, aunque usaremos TStringList
+
+using namespace std;
+
+class PilaPersistente {
+private:
+	// Unico atributo: una String que guarda los datos (un elemento por línea)
+	String NOM;
+
+public:
+	/**
+	 * @brief Constructor por defecto.
+	 */
+	PilaPersistente();
+
+	/**
+	 * @brief Inicializa/limpia la pila (la String interna).
+	 */
+	void CrearPila();
+
+	/**
+	 * @brief Añade un elemento a la cima de la pila (al final de la String).
+	 * @param elemento El valor a insertar.
+	 */
+	void PonerPila(int elemento);
+
+	/**
+	 * @brief Saca un elemento de la cima de la pila (del final de la String).
+	 * @param elemento Variable (pasada por referencia) donde se guardará el valor sacado.
+	 * @return true si se pudo sacar, false si la pila estaba vacía.
+	 */
+	bool SacarPila(int &elemento);
+
+	/**
+	 * @brief Dibuja el estado actual de la pila en un TCanvas.
+	 * @param Canvas El lienzo donde se dibujará.
+	 * @param x Posición X de inicio.
+	 * @param y Posición Y de inicio.
+	 * @param colorFondo Color de fondo del Canvas (para el texto).
+	 */
+	void MostrarPila(TCanvas *Canvas, int x, int y, TColor colorFondo);
+
+	/**
+	 * @brief Comprueba si la pila (String) está vacía.
+	 * @return true si está vacía, false si no.
+	 */
+	bool Vacia();
+};
+//---------------------------------------------------------------------------
+#endif
+
+

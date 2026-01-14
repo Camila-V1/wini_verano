@@ -1,0 +1,81 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+ #include <stdlib.h> // Para rand() y srand()
+#include <time.h>
+#include "UCV_Conjunto.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+void conjuntov::crear(){
+for (int i=0; i <=MAX; i++) {
+   elementos [i]=0;
+
+}
+longitud=0;
+}
+  int conjuntov::cardinal(){
+
+  return longitud;
+  }
+	int conjuntov::ordinal(int e)   {
+	 int r=0;
+	 for (int i = 0; i <= MAX; i++) {
+	 if (elementos[i]!=0) {
+	 r+=1;
+	  if (e==i) {
+       return r;
+	  }
+	 }
+
+	 }
+     return r;
+	}
+	int generarNumeroAleatorio() {
+	srand(time(0)); // Inicializa el generador de números aleatorios
+	int min = 0; // Límite inferior del rango
+	int max = 100; // Límite superior del rango
+	int num = rand() % (max - min + 1) + min;
+	return num;
+}
+
+   int conjuntov::muestrea(){
+	int  r=0;   int elemento=0;
+	int   lug =generarNumeroAleatorio();
+   for (int i = 0; i <=MAX; i++) {
+	 if (elementos[i]!=0) {
+		  r+=r;
+		  if (r==lug) {
+			   elemento=elementos[i];              return elemento;
+		  }
+	 }
+   }
+      return elemento;
+  }
+
+
+
+ bool conjuntov::vacio(){
+ return (longitud==0);
+ }
+	 bool conjunto:: pertenece(int e){
+
+		if (elementos[e]==0) {
+				  return false;
+		}
+
+	 return true;
+	 }
+
+ void conjuntov::inserta (int e ){
+ if (pertenece(e)==false) {
+ elementos[e]=1;
+ longitud+=1;
+ }
+ }
+   void conjuntov::suprime(int e){
+   if (pertenece(e)) {
+			elementos[e]=0;
+			longitud-=1;
+   }
+   }
+

@@ -1,0 +1,21 @@
+//---------------------------------------------------------------------------
+
+#ifndef UC_vectoresH
+#define UC_vectoresH
+//---------------------------------------------------------------------------
+
+const int maxx = 100;
+class colaV1 {
+    private:
+        int V[maxx];
+        int ini;
+        int fin;
+
+    public:
+        colaV1();
+        bool vacia();
+        void poner(int e);
+        void sacar(int &e);
+        int primero();
+};
+#endif

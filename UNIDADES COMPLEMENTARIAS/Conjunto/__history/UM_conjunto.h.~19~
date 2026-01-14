@@ -1,0 +1,38 @@
+//---------------------------------------------------------------------------
+
+#ifndef UM_conjuntoH
+#define UM_conjuntoH
+//---------------------------------------------------------------------------
+#include "Umemoria.h"
+
+
+typedef int direccion;
+class conjuntoM{
+	private:
+
+    const string datoNL = "elemento,sig";
+	const string elementNL = "->elemento";
+	const string sigNL = "->sig";
+    static const int MAX= 20;
+	static const int NULO = -1;
+
+	direccion pe;
+
+	CSmemoria* Cm;
+	public: 	int longitud;
+	conjuntoM();
+	conjuntoM(CSmemoria* m);
+	bool vacio();
+   bool pertenece(int e);
+	void  inserta(int e);
+	 int ordinal(int e);
+	  int cardinal();
+	  int suprime(int e);
+	  int muestrea();
+	  void imprimir(TColor FormColor, TCanvas *Canvas);
+      int generarNumeroAleatorio() ;
+
+
+};
+
+#endif

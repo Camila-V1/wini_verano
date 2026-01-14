@@ -1,0 +1,40 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "UC_vectores.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+   colaV1::  colaV1(){
+	ini=0; fin=-1;
+	// Constructor
+
+
+	}
+
+		bool colaV1:: vacia() {
+            return (ini > fin);
+        }
+
+		void colaV1:: poner(int e) {
+            if (fin < maxx - 1) {
+                fin++;
+                V[fin] = e;
+            }
+            // Aquí puedes manejar el caso cuando la cola está llena
+        }
+
+		void colaV1:: sacar(int &e) {
+            if (!vacia()) {
+                e = V[ini];
+                ini++;
+            }
+            // Aquí puedes manejar el caso cuando la cola está vacía
+        }
+
+		int colaV1:: primero() {
+            if (!vacia()) {
+                return V[ini];
+            }
+            // Aquí puedes manejar el caso cuando la cola está vacía
+        }

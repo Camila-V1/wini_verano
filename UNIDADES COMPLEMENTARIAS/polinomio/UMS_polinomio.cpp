@@ -1,0 +1,299 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "UMS_polinomio.h"
+
+	#include "Umemoria.h"
+#include "Umemoria.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+polinomioM::polinomioM(){
+crear();
+}
+ void  polinomioM::crear(){
+  nt=0;   ptrp=NULO;
+}
+ polinomioM::polinomioM( CSmemoria* m){
+ ;
+ Cm= m;  crear();
+ }
+  int polinomioM::BuscarExponente(int Exp) {
+		   int Dir = ptrp;   int x;
+
+		   if (Dir != nulo) {
+			   int dirEx = nulo;
+			   while ((Dir != nulo) && (dirEx == nulo)) {
+
+				   if (Cm->obtenerDato(Dir, "->exp")== Exp)
+					   dirEx = Dir;
+				   Dir = Cm->obtenerDato(Dir, "->sig");
+			   }
+			   return dirEx;
+		   } else return nulo;
+  }
+
+
+	
+  int  polinomioM::BuscarTerminoN(int T){
+	  int Dir = ptrp;
+	if (Dir != nulo) {
+		int dirTer = nulo; //
+		int Nt = 0;
+		while ((Dir != nulo) && (dirTer == nulo)) {
+			Nt = Nt + 1;
+			if (Nt == T) {
+				dirTer = Dir;
+			}
+			Dir = Cm->obtenerDato(Dir, "->sig");
+        }
+		return dirTer;
+
+
+  } else return nulo;
+  }
+  bool polinomioM::EsCero(){
+  return (nt==0);
+  }
+
+   int polinomioM::Grado(){
+	  int Dir = ptrp;
+	if (Dir != nulo) {
+		int MaxG = Cm->obtenerDato(Dir, "->exp");
+		while (Dir != nulo) {
+			if (Cm->obtenerDato(Dir, "->exp") > MaxG) {
+				MaxG = Cm->obtenerDato(Dir, "->exp");
+			}
+			Dir = Cm->obtenerDato(Dir, "->sig");
+		}
+		return MaxG;
+	} else return nulo;
+   }
+  int polinomioM::coeficiente(int Exp){
+   int Dir = BuscarExponente(Exp);
+	if (Dir != nulo) { //
+		return Cm->obtenerDato(Dir, "->coef");
+	} else return nulo;
+}
+void polinomioM::AsignarCoeficiente(int coef, int exp) {
+	int Dir = BuscarExponente(exp);
+	if (Dir != nulo) { //
+		Cm->poner_dato(Dir, "coef", coef);
+		if (coef == 0) {
+		Cm->Delete_espacio(Dir);
+
+        }
+	} else {
+		throw Exception("No existe ese término"); //
+    }
+}
+ int polinomioM::numero_terminos(){
+ return nt;
+ }
+ void polinomioM::poner_termino(int coef, int exp) {
+	int existe = BuscarExponente(exp);
+	if (existe == nulo) { //
+		int aux = Cm->new_espacio("coef,exp,sig");
+		if (aux != nulo) {
+			Cm->poner_dato(aux, "->coef", coef);
+			Cm->poner_dato(aux, "->exp", exp);
+			Cm->poner_dato(aux, "->sig" ,ptrp);
+			ptrp = aux;
+
+			nt = nt + 1;
+		} else {
+			 throw Exception("Error de espacio de memoria"); // manejo de excepciones en caso de que no haya espacio de memoria
+		}
+	} else {
+		int NuevoCoef = Cm->obtenerDato(existe, "->coef") + coef;
+		Cm->poner_dato(existe, "->coef", NuevoCoef);
+
+	}
+}
+void polinomioM::poner_en_cero() {
+    // Recorre todos los términos del polinomio
+    for (int i = 1; i <= numero_terminos(); i++) {
+        // Obtiene el exponente del término actual
+        int ex = exponente(i);
+        // Asigna 0 al coeficiente del término con el exponente obtenido
+        AsignarCoeficiente(0, ex);
+    }
+    // Elimina los términos con coeficiente 0
+    // Necesitarás implementar esto dependiendo de cómo esté estructurada tu lista enlazada
+}
+	int polinomioM::exponente(int nroter){
+	  int dir = BuscarTerminoN(nroter);
+	if (dir != nulo) { // asumiendo que nulo es una constante definida para representar null o -1
+		return Cm->obtenerDato(dir, "->exp");
+	}else return nulo;
+	}
+void polinomioM::imprimir(TColor FormColor, TCanvas *Canvas) {
+	int Dir = ptrp;
+	String polinomio = "";
+
+	// Recorrer la lista de términos en memoria
+	while (Dir != NULO) {
+		int coef = Cm->obtenerDato(Dir, "->coef");
+		int exp = Cm->obtenerDato(Dir, "->exp");
+
+		// Formatear el término
+		if (coef != 0) {
+			if (!polinomio.IsEmpty() && coef > 0) {
+				polinomio += " + ";
+			} else if (coef < 0) {
+				polinomio += " - ";
+				coef = -coef; // Convertir coeficiente negativo en positivo para mostrarlo bien
+			}
+
+			if (coef != 1 || exp == 0) {
+				polinomio += IntToStr(coef);
+			}
+			if (exp > 0) {
+				polinomio += "x";
+				if (exp > 1) {
+					polinomio += "^" + IntToStr(exp);
+				}
+            }
+        }
+
+        Dir = Cm->obtenerDato(Dir, "->sig");
+    }
+
+	if (polinomio.IsEmpty()) {
+		polinomio = "0"; // Si el polinomio es vacío, mostrar 0
+	}
+
+    // Configurar el Canvas y mostrar el polinomio
+	Canvas->Font->Size = 16;  // Ajustar tamaño de fuente
+	Canvas->Font->Color = clBlack; // Color de texto
+	Canvas->TextOutW(500, 200 , polinomio);  // Dibujar texto en la posición (50,50)
+}
+ void polinomioM::imprimir2(TColor FormColor, TCanvas *Canvas,int x,int y) {
+	int Dir = ptrp;
+	String polinomio = "";
+
+	// Recorrer la lista de términos en memoria
+	while (Dir != NULO) {
+		int coef = Cm->obtenerDato(Dir, "->coef");
+		int exp = Cm->obtenerDato(Dir, "->exp");
+
+		// Formatear el término
+		if (coef != 0) {
+			if (!polinomio.IsEmpty() && coef > 0) {
+				polinomio += " + ";
+			} else if (coef < 0) {
+				polinomio += " - ";
+				coef = -coef; // Convertir coeficiente negativo en positivo para mostrarlo bien
+			}
+
+			if (coef != 1 || exp == 0) {
+				polinomio += IntToStr(coef);
+			}
+			if (exp > 0) {
+				polinomio += "x";
+				if (exp > 1) {
+					polinomio += "^" + IntToStr(exp);
+				}
+            }
+        }
+
+        Dir = Cm->obtenerDato(Dir, "->sig");
+    }
+
+	if (polinomio.IsEmpty()) {
+		polinomio = "0"; // Si el polinomio es vacío, mostrar 0
+	}
+
+    // Configurar el Canvas y mostrar el polinomio
+	Canvas->Font->Size = 16;  // Ajustar tamaño de fuente
+	Canvas->Font->Color = clBlack; // Color de texto
+	Canvas->TextOutW(x, y , polinomio);  // Dibujar texto en la posición (50,50)
+}
+
+void polinomioM::restar(polinomioM p1, polinomioM p2){
+	for (int i = 1; i <= p1.numero_terminos(); i++) {
+        int ex = p1.exponente(i);
+        int co = p1.coeficiente(ex);
+        poner_termino(co, ex);
+    }
+    for (int i = 1; i <= p2.numero_terminos(); i++) {
+        int ex = p2.exponente(i);
+        int co = p2.coeficiente(ex) * -1;
+        poner_termino(co, ex);
+	}
+}
+void polinomioM::sumar(polinomioM p1, polinomioM p2) {
+	// poner polinomio en 0
+	 poner_en_cero()   ;
+    // necesitarás implementar esto dependiendo de cómo esté estructurada tu lista enlazada
+    for (int i = 1; i <= p1.numero_terminos(); i++) {
+        int ex = p1.exponente(i);
+        int co = p1.coeficiente(ex);
+        poner_termino(co, ex);
+    }
+    for (int i = 1; i <= p2.numero_terminos(); i++) {
+        int ex = p2.exponente(i);
+        int co = p2.coeficiente(ex);
+        poner_termino(co, ex);
+    }
+}
+
+
+
+	void polinomioM:: vaciar( ) {
+	 int pt = ptrp;
+	int prox = NULO;
+	while (pt != -1) {
+		prox = Cm->obtenerDato(pt, "->sig");
+	   Cm->Delete_espacio(pt);
+		pt = prox;
+	}
+		nt=0;
+	}
+
+	void polinomioM::poner_termino_ordenado(int coef, int exp) {
+	if (coef == 0) return; // Si el coeficiente es 0, no necesitamos agregar el término
+
+	int prev = NULO;
+	int curr = ptrp;
+
+    // Buscar la posición correcta para insertar el nuevo término
+    while (curr != NULO && Cm->obtenerDato(curr, "->exp") > exp) {
+        prev = curr;
+        curr = Cm->obtenerDato(curr, "->sig");
+    }
+
+	// Si encontramos un término con el mismo exponente, solo actualizamos el coeficiente
+	if (curr != NULO && Cm->obtenerDato(curr, "->exp") == exp) {
+		int nuevoCoef = Cm->obtenerDato(curr, "->coef") + coef;
+		Cm->poner_dato(curr, "->coef", nuevoCoef);
+		if (nuevoCoef == 0) {
+			// Si el coeficiente resultante es 0, eliminamos el término
+			if (prev == NULO) {
+				ptrp = Cm->obtenerDato(curr, "->sig");
+			} else {
+				Cm->poner_dato(prev, "->sig", Cm->obtenerDato(curr, "->sig"));
+			}
+			Cm->Delete_espacio(curr);
+			nt--;
+		}
+    } else {
+		// Si no encontramos un término con el mismo exponente, insertamos un nuevo término
+		int nuevo = Cm->new_espacio("coef,exp,sig");
+		if (nuevo != NULO) {
+			Cm->poner_dato(nuevo, "->coef", coef);
+			Cm->poner_dato(nuevo, "->exp", exp);
+			if (prev == NULO) {
+				Cm->poner_dato(nuevo, "->sig", ptrp);
+				ptrp = nuevo;
+			} else {
+				Cm->poner_dato(nuevo, "->sig", Cm->obtenerDato(prev, "->sig"));
+				Cm->poner_dato(prev, "->sig", nuevo);
+			}
+			nt++;
+		} else {
+			throw Exception("Error de espacio de memoria"); // Manejo de excepciones en caso de que no haya espacio de memoria
+		}
+    }
+}
+

@@ -1,0 +1,13 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "UPlista.h"
+/*
+#include "UCSLista.h"
+#include "Umemoria.h"
+#include "UVLista.h"         */
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+	  colal::	colal(){
+		}

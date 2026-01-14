@@ -1,0 +1,31 @@
+//---------------------------------------------------------------------------
+
+#ifndef ColaDVectorH
+#define ColaDVectorH
+//---------------------------------------------------------------------------
+
+const int MAXD = 100;
+
+class ColaDVector {
+private:
+    int datos[MAXD];
+    int ini;
+    int fin;
+    int cantidad;
+
+public:
+    ColaDVector();
+
+    bool vacia() const;
+    bool llena() const;
+
+	bool meterFinal(int valor);
+    bool meterInicio(int valor);
+
+    bool sacarInicio(int& valor);
+    bool sacarFinal(int& valor);
+
+    void imprimir(TColor color, TCanvas* canvas);
+    String comoTexto();
+};
+#endif

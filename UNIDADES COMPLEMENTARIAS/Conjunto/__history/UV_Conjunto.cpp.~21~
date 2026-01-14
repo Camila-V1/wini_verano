@@ -1,0 +1,56 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "UV_Conjunto.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+void conjunto::crear(){
+for (int i=0; i <=MAX; i++) {
+   elementos [i]=0;
+
+}
+longitud=0;
+}
+  int conjunto::cardinal(){
+
+  return longitud;
+  }
+	int conjunto::ordinal(int e)   {
+	 int r=0;
+	 for (int i = 0; i <= MAX; i++) {
+	 if (elementos[i]!=0) {
+	 r+=1;
+	  if (e==i) {
+       return r;
+	  }
+	 }
+
+	 }
+     return r;
+    }
+ bool conjunto::vacio(){
+ return (longitud==0);
+ }
+	 bool conjunto:: pertenece(int e){
+
+		if (elementos[e]==0) {
+				  return false;
+		}
+
+	 return true;
+	 }
+
+ void conjunto::inserta (int e ){
+ if (pertenece(e)==false) {
+ elementos[e]=1;
+ longitud+=1;
+ }
+ }
+   void conjunto::suprime(int e){
+   if (pertenece(e)) {
+			elementos[e]=0;
+			longitud-=1;
+   }
+   }
+

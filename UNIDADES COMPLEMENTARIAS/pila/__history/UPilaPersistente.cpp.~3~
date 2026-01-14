@@ -1,0 +1,164 @@
+//---------------------------------------------------------------------------
+#pragma hdrstop
+
+#include "UPilaPersistente.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+
+// --- Implementación de Métodos Públicos ---
+
+PilaPersistente::PilaPersistente() {
+	// Inicializamos el nombre del archivo
+	this->nom = "";
+}
+
+/**
+ * @brief Asigna el nombre y crea/limpia el archivo.
+ */
+void PilaPersistente::CrearPila(String nombreArchivo) {
+	this->nom = nombreArchivo;
+
+	// Usamos TStringList para crear un archivo vacío
+	TStringList *lista = new TStringList();
+	try {
+		lista->SaveToFile(this->nom); // Guarda un archivo vacío
+	}
+	__finally {
+		delete lista; // Libera memoria
+	}
+}
+
+/**
+ * @brief Añade un elemento al final del archivo.
+ */
+void PilaPersistente::PonerPila(int elemento) {
+	// Si el nombre no ha sido asignado, no hace nada
+	if (this->nom.IsEmpty()) {
+		ShowMessage("Error: La pila no ha sido creada (el 'nom' está vacío).");
+		return;
+	}
+
+	TStringList *lista = new TStringList();
+	try {
+		// Carga el contenido actual del archivo (si existe)
+		if (FileExists(this->nom)) {
+			lista->LoadFromFile(this->nom);
+		}
+
+		// Añade el nuevo elemento (como una nueva línea)
+		lista->Add(IntToStr(elemento));
+
+		// Guarda la lista completa de nuevo en el archivo
+		lista->SaveToFile(this->nom);
+	}
+	__finally {
+		delete lista; // Libera memoria
+	}
+}
+
+/**
+ * @brief Saca el último elemento del archivo.
+ */
+bool PilaPersistente::SacarPila(int &elemento) {
+	if (Vacia()) {
+		return false; // No hay nada que sacar
+	}
+
+	TStringList *lista = new TStringList();
+	bool exito = false;
+	try {
+		lista->LoadFromFile(this->nom);
+
+		if (lista->Count > 0) {
+			// Obtiene el último elemento (cima)
+			elemento = StrToInt(lista->Strings[lista->Count - 1]);
+			// Lo borra de la lista
+			lista->Delete(lista->Count - 1);
+
+			// Guarda el estado actualizado en el archivo
+			lista->SaveToFile(this->nom);
+			exito = true;
+		}
+	}
+	__finally {
+		delete lista; // Libera memoria
+	}
+	return exito;
+}
+
+/**
+ * @brief Comprueba si el archivo está vacío.
+ */
+bool PilaPersistente::Vacia() {
+	// Si no hay nombre o no existe el archivo, está vacía
+	if (this->nom.IsEmpty() || !FileExists(this->nom)) {
+		return true;
+	}
+
+	// Comprobamos si el archivo tiene contenido
+	TStringList *lista = new TStringList();
+	bool estaVacia = true;
+	try {
+		lista->LoadFromFile(this->nom);
+		estaVacia = (lista->Count == 0);
+	}
+	__finally {
+		delete lista;
+	}
+	return estaVacia;
+}
+
+/**
+ * @brief Dibuja la pila (leyendo el archivo).
+ */
+void PilaPersistente::MostrarPila(TCanvas *Canvas, int x, int y, TColor colorFondo) {
+	TStringList *lista = new TStringList();
+	try {
+		Canvas->Brush->Color = colorFondo; // Restaura el color de fondo
+		Canvas->Font->Size = 8;
+		Canvas->Brush->Style = bsClear; // Fondo de texto transparente
+
+		// Si está vacía (incluso si el archivo no existe), muestra el mensaje
+		if (Vacia()) {
+			Canvas->TextOut(x, y, "Pila Persistente Vacia");
+			Canvas->Brush->Style = bsSolid; // Restaura
+			delete lista;
+			return;
+		}
+
+		// Si llegamos aquí, el archivo existe y tiene contenido
+		lista->LoadFromFile(this->nom);
+
+		int posY = y;
+		int anchoCelda = 80;
+		int altoCelda = 25;
+
+		// Dibujamos la pila visualmente de arriba (cima) hacia abajo (fondo)
+		Canvas->TextOut(x + anchoCelda + 5, y + 5, "<- Cima (Archivo: " + ExtractFileName(this->nom) + ")");
+
+		// Iteramos desde el final de la lista (cima) hasta el principio (fondo)
+		for (int i = lista->Count - 1; i >= 0; i--) {
+			TRect rect(x, posY, x + anchoCelda, posY + altoCelda);
+
+			Canvas->Brush->Color = clWhite;
+			Canvas->Pen->Color = clBlack;
+			Canvas->Rectangle(rect); // Dibuja la celda
+
+			// Dibuja el número dentro
+			Canvas->Brush->Style = bsClear;
+			Canvas->TextOut(x + 5, posY + 5, lista->Strings[i]);
+			Canvas->Brush->Style = bsSolid;
+
+			posY += altoCelda; // Mueve la posición Y hacia abajo
+		}
+
+		Canvas->Brush->Style = bsClear;
+		Canvas->TextOut(x + 5, posY + 5, "<- Fondo");
+		Canvas->Brush->Style = bsSolid; // Restaura
+	}
+	__finally {
+		delete lista; // Libera memoria
+	}
+}
+
+

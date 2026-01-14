@@ -1,0 +1,22 @@
+//---------------------------------------------------------------------------
+#ifndef ColaConPilasH
+#define ColaConPilasH
+
+#include "UP_memoria.h"
+
+class colaConPilas {
+private:
+    pilaM* entrada;
+    pilaM* salida;
+
+public:
+    colaConPilas(CSmemoria* mem);
+    bool vacia();
+	void meter(int valor);
+    bool sacar(int& valor);
+	void imprimir(TColor color, TCanvas* canvas);
+    String imprimirComoCola();
+};
+
+#endif
+

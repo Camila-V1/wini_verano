@@ -1,0 +1,79 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "ColaDVector.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+
+ColaDVector::ColaDVector() {
+    ini = 0;
+	fin = MAXDD - 1;
+    cantidad = 0;
+}
+bool ColaDVector::vacia() const {
+    return cantidad == 0;
+}
+bool ColaDVector::llena() const {
+	return cantidad == MAXDD;
+}
+bool ColaDVector::meterFinal(int valor) {
+    if (llena()) return false;
+	fin = (fin + 1) % MAXDD;
+    datos[fin] = valor;
+    cantidad++;
+    return true;
+}
+bool ColaDVector::meterInicio(int valor) {
+    if (llena()) return false;
+	ini = (ini - 1 + MAXDD) % MAXDD;
+    datos[ini] = valor;
+    cantidad++;
+    return true;
+}
+bool ColaDVector::sacarInicio(int& valor) {
+	if (vacia()) return false;
+	valor = datos[ini];
+	ini = (ini + 1) % MAXDD;
+	cantidad--;
+	return true;
+}
+bool ColaDVector::sacarFinal(int& valor) {
+    if (vacia()) return false;
+    valor = datos[fin];
+	fin = (fin - 1 + MAXDD) % MAXDD;
+    cantidad--;
+    return true;
+}
+void ColaDVector::imprimir(TColor color, TCanvas* canvas) {
+    int x = 600;
+    int y = 500;
+    int ancho = 50;
+    canvas->Brush->Color = color;
+    canvas->Font->Color = clBlack;
+    int idx = ini;
+    for (int i = 0; i < cantidad; i++) {
+        TRect rect(x, y, x + ancho, y + 30);
+        canvas->Rectangle(rect);
+        canvas->TextOutW(x + 10, y + 5, IntToStr(datos[idx]));
+        idx = (idx + 1) % MAXDD;
+        x += ancho;
+    }
+    if (cantidad > 0) {
+		canvas->TextOutW(550-50, y , "Frente--> ");
+		canvas->TextOutW(x+40, y , "<--Final ");
+	} else {
+		canvas->TextOutW(x, y, "Cola vacía");
+    }
+}
+String ColaDVector::comoTexto() {
+    String resultado = "[";
+    int idx = ini;
+    for (int i = 0; i < cantidad; i++) {
+        resultado += IntToStr(datos[idx]);
+        if (i < cantidad - 1) resultado += ", ";
+		idx = (idx + 1) % MAXDD;
+    }
+    resultado += "]";
+    return resultado;
+}

@@ -1,0 +1,155 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+   #include "Lista\UCSLista.h"
+#include "Lista\UPlista.h"
+#include "Lista\UVLista.h"
+#include "UL_Coonjunto.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+conjuntolista::conjuntolista(CSmemoria* a) {
+ls= new Lista(a); //ver el constructor de la clase lista a usar
+//ls = new ptrlista();
+
+//ls= new Vlista();
+
+}
+void Pintado(int posX, int posY, String cad, TColor color, TCanvas *Canvas){
+int TamanoCelda = 35;
+int TamanoCeldaX = 80;
+int TamanoCeldaY = 35;
+	//           x1  y1    x2                   y2
+	TRect rect(posX,posY,posX+TamanoCeldaX,posY+TamanoCeldaY);
+	Canvas->Brush->Color = color;
+	Canvas->FillRect(rect);
+
+	Canvas->TextOutW(posX,posY+3,cad);
+
+}
+
+void conjuntolista::imprimir(TColor FormColor, TCanvas *Canvas){
+    int TamanoCelda = 35;
+    int TamanoCeldaX = 80;
+    int TamanoCeldaY = 35;
+
+    int	posX = 200;
+    int	posY = 800;
+    int auxX = posX;
+    int auxY = posY;
+
+    if (!vacio()) {
+        //DIBUJAMOS CABECERA
+        Pintado(posX,posY,"Lista",FormColor,Canvas);
+        posX= auxX;
+        posY+= TamanoCeldaY;
+
+        Pintado(posX,posY,"´{",FormColor,Canvas);
+		posX+=40;
+	   int x=1;
+        int p = ls->primero();
+		while (p != NULO&&x<=ls->getlongitud()){
+			Pintado(posX,posY,IntToStr(ls->recupera(p)),FormColor,Canvas);
+			posX+=40;
+			 x++;
+            p = ls->siguiente(p);
+            if (p != NULO&& x==ls->getlongitud()) {
+                Pintado(posX,posY,",",FormColor,Canvas);
+                posX+=40;
+            }
+        }
+        Pintado(posX,posY,"}",FormColor,Canvas);
+        posX+=40;
+    }else{
+        Pintado(posX,posY,"Lista Vacia",FormColor,Canvas);
+        posX= auxX;
+        posY+= TamanoCeldaY;
+    }
+}
+
+bool conjuntolista::vacio(){
+	return ls->vacia();
+	}
+int conjuntolista::cardinal(){
+   return ls->longitud;
+}
+	int conjuntolista::ordinal(int e){
+	 if (ls->vacia()==false) {
+		int cont=0;
+		int p=ls->primero();
+		while (p!=NULO) {
+		 cont+=1;
+		 int ele=ls->recupera(p);
+		 if (e==ele) {
+				  return cont;
+		 }
+		 p=ls->siguiente(p);
+		}
+
+	 } else 	cout << "el conjunto no tiene elementos\n";
+	}
+
+		bool conjuntolista::pertenece(int e){
+		 if (ls->vacia()==false) {
+
+		int p=ls->primero();
+		while (p!=NULO) {
+
+		 int ele=ls->recupera(p);
+		 if (e==ele) {
+				  return true;
+		 }
+		 p=ls->siguiente(p);
+		}
+
+	 } else return false;
+		}
+void conjuntolista::inserta(int e){
+if (pertenece(e)==false) {
+ls->inserta_primero(e) ;
+}
+}
+  void conjuntolista::suprime(int e)
+  {
+	if (pertenece(e)==true) {
+		  int di=-1;  int ele;
+		  int p =ls->primero();
+		  while (p!=NULO)
+		  {
+				  ele=ls->recupera(p);
+				  if (ele==e) {
+					   di=p;
+					   break  ;
+				  }
+				 p=ls->siguiente(p);
+			  }
+
+			  if (di!=-1) {
+				  ls->suprime(di);
+			  }
+	}
+	}
+	int generarNumeroAleatorio() {
+	srand(time(0)); // Inicializa el generador de números aleatorios
+	int min = 0; // Límite inferior del rango
+	int max = 100; // Límite superior del rango
+	int num = rand() % (max - min + 1) + min;
+	return num;
+}
+int conjuntolista::muestrea(){
+	int  lug=generarNumeroAleatorio();
+	srand(time(0));
+	int di=ls->primero();
+   int	dirl=-1;
+	 int cont=0;
+	 for (int i = 0; i <=ls->longitud; i++) {
+		   cont+=1;
+		   if (cont==lug) {
+              dirl=di;
+		   }
+	 }
+	 return ls->recupera(dirl);
+}
+ int conjuntolista::primero(){
+ return ls->recupera(ls->primero());
+
+ }

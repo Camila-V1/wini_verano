@@ -1,0 +1,77 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "UC_puntero.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+	ptr_cola::  ptr_cola() {
+		  ini=nullptr;
+		  fin=nullptr;
+          cant=0;
+									 }
+	bool ptr_cola::vacio() {
+        return (cant == 0);
+    }
+
+	int ptr_cola:: recupera(Nodopc* d) {
+        if (!vacio()) {
+            return d->dato;
+        } else {
+            return -1;
+        }
+    }
+
+	Nodopc* ptr_cola::primero() {
+        if (!vacio()) {
+            return ini;
+        } else {
+            return nullptr;
+        }
+    }
+
+	Nodopc* ptr_cola::ultimo() {
+        if (vacio()) {
+            return nullptr;
+        } else {
+            return fin;
+        }
+    }
+
+	void ptr_cola::Meter(int e) {
+		Nodopc* x = new Nodopc;
+        if (x != nullptr) {
+            x->dato = e;
+            x->sig = nullptr;
+            if (vacio()) {
+                ini = x;
+                fin = x;
+            } else {
+                fin->sig = x;
+                fin = x;
+            }
+            cant++;
+        }
+    }
+
+	void ptr_cola::Sacar(int &e) {
+        if (!vacio()) {
+            Nodopc* p = primero();
+            e = recupera(p);
+            ini = p->sig;
+            delete p;
+            cant--;
+            if (vacio()) {
+                fin = nullptr;
+            }
+        }
+    }
+
+	int ptr_cola::frente() {
+        return recupera(primero());
+    }
+
+    int ptr_cola::final() {
+        return recupera(ultimo());
+    }
+};

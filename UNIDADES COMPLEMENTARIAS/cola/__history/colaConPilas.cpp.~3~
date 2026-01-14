@@ -1,0 +1,116 @@
+﻿#pragma hdrstop
+#include "ColaConPilas.h"
+#pragma package(smart_init)
+
+
+colaConPilas::colaConPilas(CSmemoria* mem) {
+	pilaOriginal = new pilaM(mem);
+}
+
+bool colaConPilas::vacia() {
+    return pilaOriginal->Vacia();
+}
+
+void colaConPilas::meter(int valor) {
+    pilaOriginal->Meter(valor);
+}
+
+bool colaConPilas::sacar(int& valor) {
+    if (pilaOriginal->Vacia()) return false;
+
+    pilav aux;
+    int temp;
+
+    // Paso 1: pasar todo a auxiliar
+    while (!pilaOriginal->Vacia()) {
+        dir tempDir;
+        pilaOriginal->Sacar(tempDir);
+        temp = tempDir;
+        aux.Meter(temp);
+    }
+
+    // Paso 2: sacar el primer ingresado (último en aux)
+    aux.Sacar(temp);
+    valor = temp;
+
+    // Paso 3: devolver lo restante a pilaOriginal
+    while (!aux.Vacia()) {
+        aux.Sacar(temp);
+        pilaOriginal->Meter(temp);
+    }
+
+    return true;
+}
+
+void colaConPilas::imprimir(TColor color, TCanvas* canvas) {
+    const int xInicio = 600;
+    const int y = 600;
+
+    pilav aux;
+    int temp;
+
+    // Copiar contenido actual sin modificar pilaOriginal
+    int dirCopia = pilaOriginal->pe;
+    while (dirCopia != NULO) {
+        int dato = pilaOriginal->Cm->obtenerDato(dirCopia, elementNL);
+        aux.Meter(dato);
+        dirCopia = pilaOriginal->Cm->obtenerDato(dirCopia, sigNL);
+    }
+
+    // Dibujar representación desde el fondo
+    String representacion = "[";
+    int valores[MAX];
+    int n = 0;
+
+    while (!aux.Vacia() && n < MAX) {
+        aux.Sacar(temp);
+        valores[n++] = temp;
+    }
+
+    for (int i = n - 1; i >= 0; i--) {
+        representacion += IntToStr(valores[i]);
+        if (i > 0) representacion += ", ";
+    }
+    representacion += "]";
+
+    canvas->Font->Color = clBlack;
+    canvas->Brush->Color = color;
+	canvas->TextOutW(xInicio, y, "Cola: " + representacion);
+
+	if (n > 0) {
+		canvas->TextOutW(xInicio - 80, y + 0," Final->" );
+		canvas->TextOutW(xInicio + representacion.Length() * 7 + 40, y + 0, "<-Frente ");
+    } else {
+        canvas->TextOutW(xInicio, y, "Cola vacía");
+	}
+}
+
+String colaConPilas::imprimirComoCola() {
+    pilav aux;
+    int temp;
+
+    int dirCopia = pilaOriginal->pe;
+    while (dirCopia != NULO) {
+        int dato = pilaOriginal->Cm->obtenerDato(dirCopia, elementNL);
+        aux.Meter(dato);
+        dirCopia = pilaOriginal->Cm->obtenerDato(dirCopia, sigNL);
+    }
+
+    String resultado = "[";
+    int valores[MAX];
+    int n = 0;
+
+    while (!aux.Vacia() && n < MAX) {
+        aux.Sacar(temp);
+        valores[n++] = temp;
+    }
+
+    for (int i = n - 1; i >= 0; i--) {
+        resultado += IntToStr(valores[i]);
+        if (i > 0) resultado += ", ";
+    }
+    resultado += "]";
+
+    return resultado;
+}
+

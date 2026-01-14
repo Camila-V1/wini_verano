@@ -1,0 +1,48 @@
+ //---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "UC_memoria.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+colaM::colaM(CSmemoria* m) {
+ ini=-1;
+ longitud=0;
+ fin=-1;
+ Cm= m;
+}
+bool colaM::Vacia(){
+if (ini==-1) {
+   return true;
+}              else return false;
+
+}
+void colaM::Meter(int e){
+    int aux=Cm->new_espacio("elemento,sig");
+if (aux!=-1) {
+	 Cm->poner_dato(aux,"->elemento" ,e);
+		 Cm->poner_dato(aux, "->sig" ,-1) ;
+	 if (Vacia()==true) {
+		 ini=aux;
+		 fin=aux;
+
+	 } else {
+		 Cm->poner_dato(fin,"->sig",aux);
+         fin=aux;
+     }
+}
+}
+void colaM::Sacar(int &e){
+  if (Vacia()==false) {
+				 e=Cm->obtenerDato(ini,"->elemento");
+				 int x=ini;
+				 ini=Cm->obtenerDato(ini,"->sig");
+                 Cm->Delete_espacio(x);
+  }
+}
+
+	  void  colaM::colaprimero(){
+if (Vacia()==false) {
+             return Cm->obtenerDato(ini,"->elemento") ;
+}
+      }

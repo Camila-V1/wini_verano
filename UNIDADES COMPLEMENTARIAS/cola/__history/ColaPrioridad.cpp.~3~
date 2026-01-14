@@ -1,0 +1,98 @@
+//---------------------------------------------------------------------------
+#pragma hdrstop
+#include "ColaPrioridad.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+
+ColaPri::ColaPri() {
+    colaAct = 0;
+    cant = 0;
+    for (int i = 0; i < MAXP; i++) {
+        vf[i] = 1;  // Frecuencia por defecto
+    }
+}
+
+bool ColaPri::vacia() {
+    for (int i = 0; i < MAXP; i++) {
+        if (!vc[i].vacio()) return false; // Ojo: en ptr_cola es vacio()
+    }
+    return true;
+}
+
+int ColaPri::primero() {
+    for (int i = 0; i < MAXP; i++) {
+        if (!vc[i].vacio()) return vc[i].frente(); // Devuelve el valor
+    }
+    return -1;
+}
+
+void ColaPri::poner(int e, int prioridad) {
+    if (prioridad >= 0 && prioridad < MAXP) {
+        vc[prioridad].Meter(e);
+    }
+}
+
+void ColaPri::asignarFrecuenciaPrioridad(int frec, int prioridad) {
+    if (prioridad >= 0 && prioridad < MAXP) {
+        vf[prioridad] = frec;
+    }
+}
+
+bool ColaPri::sacar(int& e) {
+    int intentos = 0;
+    while (intentos < MAXP) {
+        if (!vc[colaAct].vacio()) {
+            if (cant < vf[colaAct]) {
+                cant++;
+                vc[colaAct].Sacar(e);
+
+                // Si completamos la frecuencia de esta prioridad, pasamos a la siguiente
+                if (cant == vf[colaAct]) {
+                    colaAct = (colaAct + 1) % MAXP;
+                    cant = 0;
+                }
+                return true;
+            }
+        } else {
+            // Si la cola actual está vacía, saltamos a la siguiente
+            colaAct = (colaAct + 1) % MAXP;
+            cant = 0;
+        }
+        intentos++;
+    }
+    return false; // No encontró nada después de revisar todas
+}
+
+void ColaPri::imprimir(TColor FormColor, TCanvas* Canvas) {
+    int x = 600; // Posición X en pantalla
+    int y = 100; // Posición Y en pantalla
+
+    Canvas->Font->Color = clBlack;
+    Canvas->Brush->Color = FormColor;
+
+    for (int i = 0; i < MAXP; i++) {
+        String linea = "Prioridad " + IntToStr(i) + ": ";
+
+        if (vc[i].vacio()) {
+            linea += "[vacía]";
+        } else {
+            linea += "[";
+            // --- RECORRIDO DE PUNTEROS ---
+            Nodopc* actual = vc[i].primero(); // Obtenemos el inicio de la lista
+            while (actual != nullptr) {
+                linea += IntToStr(actual->dato);
+                actual = actual->sig; // Avanzamos al siguiente nodo
+                if (actual != nullptr) linea += ", ";
+            }
+            linea += "]";
+            // -----------------------------
+        }
+
+        // Mostrar frecuencia y si es la activa
+        linea += " | Frec: " + IntToStr(vf[i]);
+        if (i == colaAct) linea += "  <-- Activa";
+
+        Canvas->TextOutW(x, y, linea);
+        y += 20; // Bajamos una línea
+    }
+}

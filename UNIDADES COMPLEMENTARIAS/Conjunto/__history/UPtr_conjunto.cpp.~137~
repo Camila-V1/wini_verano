@@ -1,0 +1,39 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "UPtr_conjunto.h"
+#define UPlistaH
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+ ptr_Clista::ptr_Clista(){
+	lista = new ptrlista ();
+ }
+
+bool ptr_Clista::vacio() {
+	return lista->vacia();
+}
+
+int ptr_Clista::cardinal() {
+	return lista->getlongitud();
+}
+
+int ptr_Clista::ordinal(int e) {
+	int c = 0;
+	Nodolista* aux = lista->primero();
+	while (aux != NULL) {
+		c++; // empieza en 1
+		if (lista->recupera(aux) == e) {
+			return c;
+		}
+		aux = lista->siguiente(aux);
+	}
+	return -1;
+}
+
+void ptr_Clista::inserta(int e) {
+	if (!pertenece(e)) {  // if(pertenece(e) == false)
+		lista->inserta(lista->primero(), e);
+	}
+}
+

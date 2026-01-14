@@ -1,0 +1,214 @@
+//---------------------------------------------------------------------------
+#pragma hdrstop
+#include "UM_conjunto.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+conjuntoM::conjuntoM(){
+  pe=NULO;
+ longitud=0;
+ Cm = new CSmemoria();
+}
+	conjuntoM::conjuntoM(CSmemoria* m){
+	  pe=NULO;
+ longitud=0;
+ Cm= m;
+	}
+		bool conjuntoM::vacio(){
+        return (longitud==0);
+		}
+ bool conjuntoM::pertenece(int e){
+ bool r=false;
+ int pc=pe;
+ while (pc!=-1)   {
+ if (Cm->obtenerDato(pc,"->dato")==e) {
+   r=true;
+ pc=-1;
+ }else
+   pc=Cm->obtenerDato(pc,"->sig");
+ }
+
+ return r;
+ }
+ void  conjuntoM::inserta(int e){
+ if (pertenece(e)==false) {
+	 int  di=Cm->new_espacio("dato,sig");
+	 if (di!=-1) {
+		 Cm->poner_dato(di,"->dato",e);
+	   Cm->poner_dato(di,"->sig",pe);
+	   pe=di;
+	   longitud+=1;
+	 }
+ }
+ }
+ int conjuntoM::ordinal(int e){
+  int r=0;
+  int pc=pe;
+  while (pc!=-1){
+	 r+=1;
+	 if (Cm->obtenerDato(pc,"->dato")==e) {
+		 return r;
+		 pc=-1;
+	 }else pc=Cm->obtenerDato(pc,"->sig")   ;
+	  }
+ }
+  int conjuntoM::cardinal(){
+  return longitud;
+  }
+
+void conjuntoM::suprime(int e) {
+    if (!pertenece(e)) {
+        // Si el elemento no está, no hacemos nada.
+        return;
+    }
+
+    int pc = pe;    // Corresponde a "pc = prtConj" del PDF
+    int ant = NULO; // Esta es la variable CRUCIAL que corrige el bug del PDF.
+
+    // Este bucle cumple la misma función que el del PDF: encontrar el nodo a borrar.
+    // Pero además, guarda el nodo anterior en 'ant'.
+    while (pc != NULO && Cm->obtenerDato(pc, "->dato") != e) {
+        ant = pc;
+        pc = Cm->obtenerDato(pc, "->sig");
+    }
+
+    // Si pc es NULO, el elemento no se encontró (aunque 'pertenece' ya lo validó)
+    if (pc == NULO) {
+        return;
+    }
+
+    // --- AQUÍ SE CORRIGE LA LÓGICA DEL PDF ---
+    // El PDF solo borraba, pero no reconectaba la lista. Este código sí lo hace.
+
+    // Caso 1: El nodo a eliminar es el primero de la lista (no hay anterior).
+    if (ant == NULO) {
+        pe = Cm->obtenerDato(pc, "->sig");
+    }
+    // Caso 2: El nodo a eliminar está en medio o al final.
+    // Se reconecta la cadena: el anterior ahora apunta al siguiente del que se borra.
+    else {
+        int sig_pc = Cm->obtenerDato(pc, "->sig");
+        Cm->poner_dato(ant, "->sig", sig_pc);
+    }
+
+    // Finalmente, se libera el espacio de memoria, como indica el PDF.
+    // Corresponde a "m.delete_espacio(Dir)"
+    Cm->Delete_espacio(pc);
+    longitud--; // Se actualiza el cardinal del conjunto.
+}
+
+
+
+
+	void conjuntoM::eliminaSiPertenece(int e) {
+	if (pertenece(e)) {
+		suprime(e);
+	}
+}
+	int conjuntoM::generarNumeroAleatorio() {
+	srand(time(0)); // Inicializa el generador de números aleatorios
+	int min = 1; // Límite inferior del rango
+	int max = longitud; // Límite superior del rango
+	int num = rand() % (max - min + 1) + min;
+	return num;
+}
+int conjuntoM::muestrea(){
+   if (longitud>0){
+   int lug=generarNumeroAleatorio();
+   int e;
+	srand(time(0)) ;
+	int l=0;
+	 int pc=pe;
+	 while (pc!=-1) {
+		l+=1;
+		if (lug==l) {
+		  e=Cm->obtenerDato(pc,"->dato")    ;
+		  pc=-1;
+		}  else {
+			pc=Cm->obtenerDato(pc,"->sig");
+		}
+	 }
+	 return e;
+   }
+   }
+	 void conjuntoM::imprimir(TColor FormColor, TCanvas *Canvas){
+		   int posX=400;
+		   int posY=400;
+	 // Guardar los colores originales del lápiz y la brocha
+	TColor oldPenColor = Canvas->Pen->Color;
+	TColor oldBrushColor = Canvas->Brush->Color;
+	// Configurar los nuevos colores
+	Canvas->Pen->Color = clBlack; // Lápiz de color negro
+	Canvas->Brush->Color = FormColor; // Color de fondo de las celdas
+    // Variable auxiliar para la posición horizontal de cada elemento
+	int auxX = posX;
+    // Recorremos el conjunto y dibujamos cada elemento
+    int pc = pe;
+    bool primerElemento = true; // Para controlar la coma entre elementos
+    while (pc != NULO) {
+        // Obtener el dato actual
+        int e = Cm->obtenerDato(pc, "->dato");
+        // Convertir el dato a cadena para poder dibujarlo
+        String elemento = IntToStr(e);
+        // Si no es el primer elemento, agregar una coma antes
+        if (!primerElemento) {
+            Canvas->TextOutW(auxX, posY, ",");
+            auxX += Canvas->TextWidth(","); // Mover la posición horizontal después de la coma
+        }
+        // Dibujar el número en la posición (auxX, posY)
+        Canvas->TextOutW(auxX, posY, elemento);
+        // Actualizar la posición horizontal para el siguiente elemento
+        auxX += 20; // Ajusta la posición horizontal con base en el ancho del texto
+        // Avanzar al siguiente nodo
+        pc = Cm->obtenerDato(pc, "->sig");
+        primerElemento = false; // Después del primer elemento, las comas serán necesarias
+    }
+    // Restaurar los colores originales
+    Canvas->Pen->Color = oldPenColor;
+    Canvas->Brush->Color = oldBrushColor;
+	 }
+	 void conjuntoM::eliminarPorDireccion(int dir) {
+	int pc = pe;
+	int prev = NULO;
+	while (pc != NULO) {
+		if (pc == dir) {
+            // Encontramos el nodo a eliminar
+            if (prev == NULO) {
+                // El nodo a eliminar es el primero en la lista
+                pe = Cm->obtenerDato(pc, "->sig");
+            } else {
+                // El nodo a eliminar está en medio o al final de la lista
+                Cm->poner_dato(prev, "->sig", Cm->obtenerDato(pc, "->sig"));
+            }
+            Cm->Delete_espacio(pc);
+            longitud--;
+            return;
+        }
+        prev = pc;
+        pc = Cm->obtenerDato(pc, "->sig");
+	}
+}
+conjuntoM* conjuntoM::copia() {
+	conjuntoM* copia = new conjuntoM();
+	int p = this->pe;
+	while (p != NULO) {
+		int e = this->Cm->obtenerDato(p, "->dato");
+		copia->inserta(e);
+		p = this->Cm->obtenerDato(p, "->sig");
+	}
+	return copia;
+}
+void conjuntoM::interseccion(conjuntoM* a, conjuntoM * b, conjuntoM * & c) {
+	// Clear the set c
+	while (!c->vacio()) {
+		c->suprime(c->muestrea());
+	}
+	// Traverse set a
+	int pc = a->pe;
+	while (pc != NULO) {
+		// If an element of a is also in b, insert it into c
+		if (!b->pertenece(a->Cm->obtenerDato(pc, "->dato"))) {
+			c->inserta(Cm->obtenerDato(pc, "->dato"));
+		}
+		pc = Cm->obtenerDato(pc, "->sig");
+	}
+}

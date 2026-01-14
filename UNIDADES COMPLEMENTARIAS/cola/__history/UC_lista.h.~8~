@@ -1,0 +1,26 @@
+#ifndef UC_listaH
+#define UC_listaH
+
+#include <vcl.h> // Assuming TColor and TCanvas are VCL types
+
+class colal {
+private:
+    // Uncomment the list type you want to use, and make sure it's defined
+    // Lista* ls;
+    ptrlista* ls;
+    // Vlista* ls;
+
+public:
+    colal();
+    // colal(CSmemoria* M);
+
+    bool Vacia();
+    void Meter(int e);
+    void Sacar(int &e);
+    int cima();
+    int colaprimero();
+    void imprimir(TColor FormColor, TCanvas *Canvas);
+};
+
+#endif // UC_listaH
+
