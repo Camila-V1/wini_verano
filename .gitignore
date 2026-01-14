@@ -1,0 +1,42 @@
+# Archivos generados por el compilador
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+*.lib
+*.d
+
+# Directorios de compilación comunes
+build/
+bin/
+__astcache
+__astcache/
+obj/
+Debug/
+Release/
+# Archivos de caché del compilador/IDE
+_astcache/
+# Archivos de IDEs y editores
+.vscode/
+*.swp
+*~
+*.cbp
+*.depend
+*.layout
+*.sln
+*.vcxproj*
+*.user
+
+# Archivos de caché y logs específicos que mencionaste
+*.history
+*.hashtache
+*.log
+
+# Archivos de documentación temporal (no subir al repo)
+*.md
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
