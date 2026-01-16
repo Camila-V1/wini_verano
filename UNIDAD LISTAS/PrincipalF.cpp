@@ -35,8 +35,8 @@ void __fastcall TForm1::Button4Click(TObject *Sender)
 	String p= Edit4->Text;
 	 Canvas->Brush->Color = clBtnFace;
    Canvas->FillRect(Canvas->ClipRect);
-   //	M->ImprimirP_DE_A_A_B(Form1->Color,Canvas,800,20,StrToInt(d),StrToInt(p));
-	 M->	ImprimirP_DE_A_A_B   (Form1->Color,Canvas,600,20,StrToInt(d),StrToInt(p));
+   //	M->MostrarMemoriaDesplazada(Form1->Color,Canvas,500,20,StrToInt(d),StrToInt(p));
+	 M->	ImprimirP_DE_A_A_B   (Form1->Color,Canvas,500,20,StrToInt(d),StrToInt(p));
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button5Click(TObject *Sender)
@@ -70,7 +70,7 @@ l-> insertar(l-> fin(),p);
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button9Click(TObject *Sender)
 {
-			l->imprimir2(Form1->Color,Canvas, 200,400);
+			l->imprimir2(Form1->Color,Canvas, 200,600);
 }
 //---------------------------------------------------------------------------
 

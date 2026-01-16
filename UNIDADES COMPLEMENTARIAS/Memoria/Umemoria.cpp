@@ -330,7 +330,7 @@ void CSmemoria::ImprimirP_DE_A_A_B(TColor FormColor, TCanvas *Canvas,int posX,in
             // --- DIBUJAMOS CABECERA ---
             // Dejamos la primera columna (Estado) vacía de encabezado
             // Avanzamos posX para empezar a dibujar "dir" en la segunda columna
-
+                 posX += TamanoCeldaX; //
 
             Pintado(posX, posY, "dir", FormColor, Canvas);
             posX += TamanoCeldaX;
@@ -348,6 +348,15 @@ void CSmemoria::ImprimirP_DE_A_A_B(TColor FormColor, TCanvas *Canvas,int posX,in
             // --- CICLO PARA EL RANGO A..B ---
             for (int i = A; i <= B; i++) {
 
+                // Determinamos si es Libre (LB) u Ocupado (OC)
+				String estado = dir_libre(i) ? "LB" : "OC";
+
+                Canvas->Pen->Color = clBlack;
+
+
+                Canvas->Brush->Color = FormColor;
+                Canvas->TextOutW(posX + 3, posY + 3, estado);
+				  posX += TamanoCeldaX; //
                 // 2. Columna "dir"
                 Canvas->Brush->Color = FormColor; // Fondo normal para dir
                 Canvas->TextOutW(posX + 3, posY + 3, IntToStr(i));
@@ -370,15 +379,6 @@ void CSmemoria::ImprimirP_DE_A_A_B(TColor FormColor, TCanvas *Canvas,int posX,in
                 Canvas->Rectangle(posX, posY, posX + TamanoCeldaX, posY + TamanoCeldaY);
                 Canvas->TextOutW(posX + 3, posY + 3, IntToStr(mem[i].link));
 
-				 posX += TamanoCeldaX; //
-                // Determinamos si es Libre (LB) u Ocupado (OC)
-				String estado = dir_libre(i) ? "LB" : "OC";
-
-                Canvas->Pen->Color = clBlack;
-
-
-                Canvas->Brush->Color = FormColor;
-                Canvas->TextOutW(posX + 3, posY + 3, estado);
 
 
                 // Reiniciar X y bajar Y
