@@ -52,8 +52,8 @@ object Form1: TForm1
     OnClick = Button3Click
   end
   object Button4: TButton
-    Left = 19
-    Top = 100
+    Left = 27
+    Top = 99
     Width = 71
     Height = 20
     Margins.Left = 2
@@ -201,8 +201,8 @@ object Form1: TForm1
     OnClick = Button8Click
   end
   object Button9: TButton
-    Left = 19
-    Top = 254
+    Left = 27
+    Top = 302
     Width = 60
     Height = 20
     Margins.Left = 2
@@ -239,10 +239,19 @@ object Form1: TForm1
   end
   object Button10: TButton
     Left = 19
-    Top = 288
+    Top = 255
     Width = 75
     Height = 25
-    Caption = 'Button10'
+    Caption = 'suprime'
     TabOrder = 18
+    OnClick = Button10Click
+  end
+  object Edit10: TEdit
+    Left = 100
+    Top = 257
+    Width = 121
+    Height = 20
+    TabOrder = 19
+    Text = 'Edit10'
   end
 end

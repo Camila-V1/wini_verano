@@ -34,6 +34,7 @@ __published:	// IDE-managed Components
 	TEdit *Edit8;
 	TEdit *Edit9;
 	TButton *Button10;
+	TEdit *Edit10;
 	void __fastcall Button1Click(TObject *Sender);
 	void __fastcall Button2Click(TObject *Sender);
 	void __fastcall Button3Click(TObject *Sender);
@@ -43,6 +44,7 @@ __published:	// IDE-managed Components
 	void __fastcall Button7Click(TObject *Sender);
 	void __fastcall Button8Click(TObject *Sender);
 	void __fastcall Button9Click(TObject *Sender);
+	void __fastcall Button10Click(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
   //-----------------Memoria-------------------//
