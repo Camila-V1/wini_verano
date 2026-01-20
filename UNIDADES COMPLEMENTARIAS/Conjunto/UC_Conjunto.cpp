@@ -7,7 +7,7 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 void conjunto::crear(){
-for (int i=0; i <=m; i++) {
+for (int i=0; i <=MAXX; i++) {
    elemento [i]=0;
 
 }

@@ -4,16 +4,15 @@
 #define UC_ConjuntoH
 //---------------------------------------------------------------------------
 
+#define MAXX 100
+#define NULO -1
 
 class conjunto{
 	private:
 
-	static const int m = 100;
-	static const int NULO = -1;
 	typedef int Direccion;
 
-              static const int MAXX = 100;
-                     int elemento[MAXX];
+	int elemento[MAXX];
 
 	int longitud;
 	 public   :

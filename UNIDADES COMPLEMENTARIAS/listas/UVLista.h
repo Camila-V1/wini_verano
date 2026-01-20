@@ -10,11 +10,12 @@
 #include <Graphics.hpp>
 using namespace std;
 
+#define MAX 100
+#define NULO -1
+
 class Vlista{
 	private:
 
-    static const int MAX = 100;
-	static const int NULO = -1;
 	typedef int Direccion;
 
 	int elementos[MAX];
