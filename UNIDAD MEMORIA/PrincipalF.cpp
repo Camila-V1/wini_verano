@@ -64,3 +64,35 @@ void __fastcall TForm1::Button7Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TForm1::Button8Click(TObject *Sender)
+{
+    // 1. m.crear (Reinicializamos la memoria)
+    // Es recomendable liberar la anterior si existía para evitar fugas de memoria
+    if (M != NULL) delete M;
+    M = new CSmemoria();
+
+    // 2. x = m.new_espacio('c,s,i')
+    int x = M->new_espacio("c,s,i");
+
+    // 3. y = m.new_espacio('otra')
+    int y = M->new_espacio("otra");
+
+    // 4. w = m.new_espacio('vez')
+    int w = M->new_espacio("vez");
+
+    // 5. q = m.new_espacio('eleccion')
+    int q = M->new_espacio("eleccion");
+
+    // 6. m.delete_espacio(y)
+    M->Delete_espacio(y);
+
+    // 7. q = m.new_espacio('que,tal')
+    // Nota: La imagen reasigna 'q', perdiendo la referencia anterior a 'eleccion'
+    q = M->new_espacio("que,tal");
+
+    // (Opcional) Refrescar la pantalla para ver los cambios
+    // Puedes llamar a tu función de pintar aquí o forzar el repintado
+    Refresh();
+}
+//---------------------------------------------------------------------------
+
