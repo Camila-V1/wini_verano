@@ -35,8 +35,8 @@ void __fastcall TForm1::Button4Click(TObject *Sender)
 	String p= Edit4->Text;
 	 Canvas->Brush->Color = clBtnFace;
    Canvas->FillRect(Canvas->ClipRect);
-   //	M->ImprimirP_DE_A_A_B(Form1->Color,Canvas,800,20,StrToInt(d),StrToInt(p));
-	 M->	MostrarMemoriaDesplazada   (Form1->Color,Canvas,800,20,StrToInt(d),StrToInt(p));
+   M->ImprimirP_DE_A_A_B(Form1->Color,Canvas,800,20,StrToInt(d),StrToInt(p));
+   //	 M->	MostrarMemoriaDesplazada   (Form1->Color,Canvas,800,20,StrToInt(d),StrToInt(p));
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button5Click(TObject *Sender)
@@ -46,31 +46,6 @@ void __fastcall TForm1::Button5Click(TObject *Sender)
 	String v=  Edit7->Text;
 
  M->poner_dato(StrToInt(AnsiString(d).c_str()),AnsiString(p).c_str(),StrToInt(AnsiString(v).c_str()));
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::Button6Click(TObject *Sender)
-{
-		l = new Lista(M);
-//  l = new ptrlista();
-  //l = new Vlista();
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::Button7Click(TObject *Sender)
-{
-	int p= StrToInt(Edit8->Text);
-//l-> inserta_primero(p);
-l-> insertar(l-> primero(),p);
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::Button8Click(TObject *Sender)
-{   	int p= StrToInt(Edit9->Text);
- //l-> inserta_ultimo(p);
-l-> insertar(l-> fin(),p);
-}
-//---------------------------------------------------------------------------
-void __fastcall TForm1::Button9Click(TObject *Sender)
-{
-			l->imprimir2(Form1->Color,Canvas, 200,400);
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button10Click(TObject *Sender)
@@ -240,4 +215,5 @@ diferencia_simetrica_para_M(a, b, c);
 	c->imprimir(this->Color, Canvas);
 }
 //---------------------------------------------------------------------------
+
 

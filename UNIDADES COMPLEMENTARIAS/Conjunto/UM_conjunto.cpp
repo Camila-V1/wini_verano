@@ -150,18 +150,22 @@ int conjuntoM::muestrea(){
         // Convertir el dato a cadena para poder dibujarlo
         String elemento = IntToStr(e);
         // Si no es el primer elemento, agregar una coma antes
-        if (!primerElemento) {
+		if (!primerElemento) {
             Canvas->TextOutW(auxX, posY, ",");
             auxX += Canvas->TextWidth(","); // Mover la posición horizontal después de la coma
         }
-        // Dibujar el número en la posición (auxX, posY)
-        Canvas->TextOutW(auxX, posY, elemento);
-        // Actualizar la posición horizontal para el siguiente elemento
-        auxX += 20; // Ajusta la posición horizontal con base en el ancho del texto
+		// Dibujar el número en la posición (auxX, posY)
+		if (primerElemento) {
+		Canvas->TextOutW(auxX-5, posY,"{");
+		}
+		Canvas->TextOutW(auxX, posY,"e"+ elemento);
+		// Actualizar la posición horizontal para el siguiente elemento
+		auxX += 20; // Ajusta la posición horizontal con base en el ancho del texto
         // Avanzar al siguiente nodo
         pc = Cm->obtenerDato(pc, "->sig");
         primerElemento = false; // Después del primer elemento, las comas serán necesarias
-    }
+	}
+		Canvas->TextOutW(auxX+5, posY,"}");
     // Restaurar los colores originales
     Canvas->Pen->Color = oldPenColor;
     Canvas->Brush->Color = oldBrushColor;
