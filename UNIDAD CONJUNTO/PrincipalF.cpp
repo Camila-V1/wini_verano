@@ -91,9 +91,9 @@ else
 	}
 }
 }
-// Asumiendo que tus objetos a, b y c son de tipo ptr_Clista*
-void intersectar_conjuntos(ptr_Clista* A, ptr_Clista* B, ptr_Clista* C) {
-    // 1. Limpiar el conjunto C por si tenía basura de antes
+// Asumiendo que tus objetos a, b y c son de tipo ptr_conjunto*
+void intersectar_conjuntos(ptr_conjunto* A, ptr_conjunto* B, ptr_conjunto* C) {
+    // 1. Limpiar el conjunto C por si tenï¿½a basura de antes
     while (!C->vacio()) {
         C->suprime(C->muestrea());
     }
@@ -108,7 +108,7 @@ void intersectar_conjuntos(ptr_Clista* A, ptr_Clista* B, ptr_Clista* C) {
 
         // Verificamos si pertenece al otro conjunto (B)
         if (B->pertenece(e)) {
-            C->inserta(e); // Si está en ambos, se añade a la intersección (C)
+            C->inserta(e); // Si estï¿½ en ambos, se aï¿½ade a la intersecciï¿½n (C)
         }
 
         // Guardamos el elemento en Aux y lo eliminamos de A
@@ -137,11 +137,11 @@ void __fastcall TForm1::Button14Click(TObject *Sender)
     // 2. Obtener el nombre del conjunto del Edit
     String p = Edit12->Text;
 
-    // 3. Configurar las dimensiones del círculo
-    int centroX = 400; // Posición X del centro en la pantalla
-    int centroY = 300; // Posición Y del centro en la pantalla
-    int radio = 150;   // Tamaño del círculo
-	TColor colorCirculo = Form1->Color; // Color de fondo del círculo
+    // 3. Configurar las dimensiones del cï¿½rculo
+    int centroX = 400; // Posiciï¿½n X del centro en la pantalla
+    int centroY = 300; // Posiciï¿½n Y del centro en la pantalla
+    int radio = 150;   // Tamaï¿½o del cï¿½rculo
+	TColor colorCirculo = Form1->Color; // Color de fondo del cï¿½rculo
 
     // 4. Hacer el llamado al conjunto correspondiente
     if (p == "a") {
@@ -180,7 +180,7 @@ while (b->cardinal()!=0){
 void diferencia_simetrica_para_M(conjuntoM* a, conjuntoM* b, conjuntoM* c)
 {
 	if (a == NULL || b == NULL || c == NULL) {
-		ShowMessage("Error: Uno o más conjuntos no han sido creados.");
+		ShowMessage("Error: Uno o mï¿½s conjuntos no han sido creados.");
 		return;
 	}
 while (!c->vacio()) {
@@ -209,7 +209,7 @@ conjuntoM* a_copia = a->copia();
 void intersectar_conjuntos(conjuntoM* a, conjuntoM* b, conjuntoM* c)
 {
 	if (a == NULL || b == NULL || c == NULL) {
-		ShowMessage("Error: Uno o más conjuntos no han sido creados.");
+		ShowMessage("Error: Uno o mï¿½s conjuntos no han sido creados.");
 		return;
 	}
 
@@ -238,7 +238,7 @@ void __fastcall TForm1::Button16Click(TObject *Sender)
 {
     // Validar que los conjuntos existan antes de operar
     if (a != NULL && b != NULL && c != NULL) {
-        // Llamado a la función que acabamos de crear
+        // Llamado a la funciï¿½n que acabamos de crear
         intersectar_conjuntos(a, b, c);
     }
 

@@ -62,21 +62,21 @@ public:		// User declarations
  Lista * l;     //memoria
 //ptrlista *    l ;  //puntero
  //Vlista *l  ;       //vector
-	ptr_Clista* a;
-   ptr_Clista* c;
-   ptr_Clista* b;
+	ptr_conjunto* a;
+   ptr_conjunto* c;
+   ptr_conjunto* b;
 	   //	conjuntolista* a;
   // conjuntolista* c;
   // conjuntolista* b;
   /*
-	// OPCIÓN 3: Implementación con Punteros
-	ptr_Clista* a;
-	ptr_Clista* b;
-	ptr_Clista* c;
+	// OPCIï¿½N 3: Implementaciï¿½n con Punteros
+	ptr_conjunto* a;
+	ptr_conjunto* b;
+	ptr_conjunto* c;
 	*/
 
 	/*
-	// OPCIÓN 4: Implementación con Vector Característico
+	// OPCIï¿½N 4: Implementaciï¿½n con Vector Caracterï¿½stico
 	conjunto* a;
 	conjunto* b;
 	conjunto* c;

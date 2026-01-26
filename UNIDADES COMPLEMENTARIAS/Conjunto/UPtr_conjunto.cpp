@@ -6,11 +6,11 @@
 #define UPlistaH
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
- ptr_Clista::ptr_Clista(){
+ ptr_conjunto::ptr_conjunto(){
 	cant = 0;
 	ptrConj = NULL;
  }
-bool ptr_Clista::vacio() {
+bool ptr_conjunto::vacio() {
 	return cant == 0;
 }
 int ptr_Clista::cardinal() {
@@ -29,7 +29,7 @@ int ptr_Clista::ordinal(int e) {
 	cout << "Error elemento no encontrado\n";
 	return -1; // Devuelve -1 por que no lo encuentra
 }
-void ptr_Clista::inserta(int e) {
+void ptr_conjunto::inserta(int e) {
 	if (!pertenece(e)) {
 		NodoConj* dir = new NodoConj;
 		if (dir != NULL) {
@@ -44,7 +44,7 @@ void ptr_Clista::inserta(int e) {
 	else
 		cout << "ERROR ELEMENTO YA EXISTE\n";
 }
-NodoConj* ptr_Clista::anterior(NodoConj *p) {
+NodoConj* ptr_conjunto::anterior(NodoConj *p) {
 	if (this->vacio()) {
 	}
 	else if (p == ptrConj) {
@@ -61,7 +61,7 @@ NodoConj* ptr_Clista::anterior(NodoConj *p) {
 		}
 	}
 }
-NodoConj* ptr_Clista::localiza(int e) {
+NodoConj* ptr_conjunto::localiza(int e) {
 	NodoConj* x = ptrConj;
 	while (x != NULL) {
 		if (x->dato == e)
@@ -70,7 +70,7 @@ NodoConj* ptr_Clista::localiza(int e) {
 	}
 	return NULL;
 }
-void ptr_Clista::suprime(int e) {
+void ptr_conjunto::suprime(int e) {
 	NodoConj* p = localiza(e);
 	if (cant == 0) {
 		return;
@@ -87,7 +87,7 @@ void ptr_Clista::suprime(int e) {
 	}
 	cant--;
 }
-bool ptr_Clista::pertenece(int e) {
+bool ptr_conjunto::pertenece(int e) {
 	NodoConj* x = ptrConj;
 	while (x != NULL) {
 		if (x->dato == e)
@@ -96,7 +96,7 @@ bool ptr_Clista::pertenece(int e) {
 	}
 	return false;
 }
-int ptr_Clista::muestrea() {
+int ptr_conjunto::muestrea() {
 	if (!vacio()) {
 		srand(time(NULL));
 		int pos = rand() % cardinal();
@@ -105,7 +105,7 @@ int ptr_Clista::muestrea() {
 	else
 		return 0;
 }
-int ptr_Clista::elemento(int pos) {
+int ptr_conjunto::elemento(int pos) {
 	int c = 0;
 	NodoConj* aux = ptrConj;
 	while (aux != NULL) {
@@ -116,7 +116,7 @@ int ptr_Clista::elemento(int pos) {
 	}
 	return 0;
 }
-   void ptr_Clista::Pintado(int posX, int posY, String cad, TColor color, TCanvas *Canvas){
+   void ptr_conjunto::Pintado(int posX, int posY, String cad, TColor color, TCanvas *Canvas){
 int TamanoCelda = 35;
 int TamanoCeldaX = 80;
 int TamanoCeldaY = 35;
@@ -128,7 +128,7 @@ int TamanoCeldaY = 35;
 	Canvas->TextOutW(posX,posY+3,cad);
 
 }
- void ptr_Clista::imprimir(TColor FormColor, TCanvas *Canvas){
+ void ptr_conjunto::imprimir(TColor FormColor, TCanvas *Canvas){
 	//ptr->imprimir2( FormColor, Canvas,180,800); int TamanoCelda = 35;
   int TamanoCeldaX = 80;
 	int TamanoCeldaY = 35;
@@ -168,12 +168,12 @@ int TamanoCeldaY = 35;
 		posY+= TamanoCeldaY;
 	}
 }
-int ptr_Clista::primero(){
+int ptr_conjunto::primero(){
 	return ptrConj->dato;
 
 }
 
-void ptr_Clista::mostrarEnCirculo(int centerX, int centerY, int radio, TColor color, TCanvas *Canvas) {
+void ptr_conjunto::mostrarEnCirculo(int centerX, int centerY, int radio, TColor color, TCanvas *Canvas) {
     // 1. DIBUJAR EL CÍRCULO PRINCIPAL (Fondo)
     Canvas->Pen->Color = clBlack; // Borde negro
     Canvas->Brush->Color = color; // Color de relleno del círculo

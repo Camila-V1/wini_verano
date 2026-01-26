@@ -14,14 +14,14 @@ struct NodoConj {
 	NodoConj* sig;
 };
 
-class ptr_Clista{
+class ptr_conjunto{
 	private:
 	NodoConj* ptrConj;
 	int cant;
 	NodoConj* localiza(int e);
 	NodoConj* anterior(NodoConj *p);
 	public:
-   ptr_Clista();
+   ptr_conjunto();
 	void crear();
 	 bool vacio();
 	 bool pertenece(int e);
