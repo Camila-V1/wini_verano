@@ -13,10 +13,10 @@
 bool ptr_conjunto::vacio() {
 	return cant == 0;
 }
-int ptr_Clista::cardinal() {
+int ptr_conjunto::cardinal() {
 	return cant;
 }
-int ptr_Clista::ordinal(int e) {
+int ptr_conjunto::ordinal(int e) {
 	int c = 0;
 	NodoConj* aux = ptrConj;
 	while (aux != NULL) {

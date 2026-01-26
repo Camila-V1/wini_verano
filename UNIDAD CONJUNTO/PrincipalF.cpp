@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------------
+﻿//---------------------------------------------------------------------------
 #include <vcl.h>
 #pragma hdrstop
 #include "PrincipalF.h"
@@ -52,7 +52,7 @@ void __fastcall TForm1::Button10Click(TObject *Sender)
 {
 //a = new conjuntoM(M);
 	// a = new conjuntolista(M);
-	a = new ptr_Clista();
+	a = new ptr_conjunto();
 	// a = new conjunto();
 }
 //---------------------------------------------------------------------------
@@ -61,7 +61,7 @@ void __fastcall TForm1::Button11Click(TObject *Sender)
 {
 //b = new conjuntoM(M);
 	// b = new conjuntolista(M);
-	b = new ptr_Clista();
+	b = new ptr_conjunto();
 	// b = new conjunto();
 }
 //---------------------------------------------------------------------------
@@ -70,7 +70,7 @@ void __fastcall TForm1::Button12Click(TObject *Sender)
 {
 //c = new conjuntoM(M);
 	// c = new conjuntolista(M);
-	 c = new ptr_Clista();
+	 c = new ptr_conjunto();
 	// c = new conjunto();
 }
 //---------------------------------------------------------------------------
@@ -99,7 +99,7 @@ void intersectar_conjuntos(ptr_conjunto* A, ptr_conjunto* B, ptr_conjunto* C) {
     }
 
     // Conjunto temporal para no perder los datos de A
-    ptr_Clista* Aux = new ptr_Clista();
+    ptr_conjunto* Aux = new ptr_conjunto();
 
     // 2. Iterar sobre A usando muestrea()
     while (!A->vacio()) {
