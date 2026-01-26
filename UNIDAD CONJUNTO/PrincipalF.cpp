@@ -50,27 +50,27 @@ void __fastcall TForm1::Button5Click(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Button10Click(TObject *Sender)
 {
-a = new conjuntoM(M);
+//a = new conjuntoM(M);
 	// a = new conjuntolista(M);
-	// a = new ptr_Clista();
+	a = new ptr_Clista();
 	// a = new conjunto();
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::Button11Click(TObject *Sender)
 {
-b = new conjuntoM(M);
+//b = new conjuntoM(M);
 	// b = new conjuntolista(M);
-	// b = new ptr_Clista();
+	b = new ptr_Clista();
 	// b = new conjunto();
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::Button12Click(TObject *Sender)
 {
-c = new conjuntoM(M);
+//c = new conjuntoM(M);
 	// c = new conjuntolista(M);
-	// c = new ptr_Clista();
+	 c = new ptr_Clista();
 	// c = new conjunto();
 }
 //---------------------------------------------------------------------------
@@ -91,23 +91,68 @@ else
 	}
 }
 }
-//---------------------------------------------------------------------------
+// Asumiendo que tus objetos a, b y c son de tipo ptr_Clista*
+void intersectar_conjuntos(ptr_Clista* A, ptr_Clista* B, ptr_Clista* C) {
+    // 1. Limpiar el conjunto C por si tenía basura de antes
+    while (!C->vacio()) {
+        C->suprime(C->muestrea());
+    }
 
+    // Conjunto temporal para no perder los datos de A
+    ptr_Clista* Aux = new ptr_Clista();
+
+    // 2. Iterar sobre A usando muestrea()
+    while (!A->vacio()) {
+        // Sacamos un elemento aleatorio
+        int e = A->muestrea();
+
+        // Verificamos si pertenece al otro conjunto (B)
+        if (B->pertenece(e)) {
+            C->inserta(e); // Si está en ambos, se añade a la intersección (C)
+        }
+
+        // Guardamos el elemento en Aux y lo eliminamos de A
+        // para que muestrea() pueda darnos uno nuevo en la siguiente vuelta
+        Aux->inserta(e);
+        A->suprime(e);
+    }
+
+    // 3. Restaurar el conjunto A a su estado original
+    while (!Aux->vacio()) {
+        int e = Aux->muestrea();
+        A->inserta(e);
+        Aux->suprime(e);
+    }
+
+    // Liberar la memoria del conjunto temporal
+    delete Aux;
+}
+//---------------------------------------------------------------------------
 void __fastcall TForm1::Button14Click(TObject *Sender)
 {
-   Canvas->Brush->Color = clBtnFace;
-	Canvas->FillRect(Canvas->ClipRect);
-	String p=  Edit12->Text;;
-if (p=="a") {
-  a->imprimir(Form1->Color,Canvas);
-}
-else {
-	if (p=="b") {
-		 b->imprimir(Form1->Color,Canvas) ;
-	} else {
-	c->imprimir(Form1->Color,Canvas)  ;
-	}
-	}
+    // 1. Limpiar el lienzo (Canvas)
+    Canvas->Brush->Color = clBtnFace;
+    Canvas->FillRect(Canvas->ClipRect);
+
+    // 2. Obtener el nombre del conjunto del Edit
+    String p = Edit12->Text;
+
+    // 3. Configurar las dimensiones del círculo
+    int centroX = 400; // Posición X del centro en la pantalla
+    int centroY = 300; // Posición Y del centro en la pantalla
+    int radio = 150;   // Tamaño del círculo
+	TColor colorCirculo = Form1->Color; // Color de fondo del círculo
+
+    // 4. Hacer el llamado al conjunto correspondiente
+    if (p == "a") {
+        a->mostrarEnCirculo(centroX, centroY, radio, colorCirculo, Canvas);
+    }
+    else if (p == "b") {
+        b->mostrarEnCirculo(centroX, centroY, radio, colorCirculo, Canvas);
+    }
+    else if (p == "c") {
+        c->mostrarEnCirculo(centroX, centroY, radio, colorCirculo, Canvas);
+    }
 }
 //---------------------------------------------------------------------------
 
@@ -191,23 +236,23 @@ while (!a_copia->vacio()) {
 
 void __fastcall TForm1::Button16Click(TObject *Sender)
 {
-	intersectar_conjuntos(a, b, c);
+    // Validar que los conjuntos existan antes de operar
+    if (a != NULL && b != NULL && c != NULL) {
+        // Llamado a la función que acabamos de crear
+        intersectar_conjuntos(a, b, c);
+    }
 
+    // Limpiar el lienzo
+    Canvas->Brush->Color = clBtnFace;
+    Canvas->FillRect(Canvas->ClipRect);
 
-	Canvas->Brush->Color = clBtnFace;
-	Canvas->FillRect(Canvas->ClipRect);
-
-	if (c != NULL) {
-		c->imprimir(this->Color, Canvas);
-	}
-
-
+  
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::Button17Click(TObject *Sender)
 {
-diferencia_simetrica_para_M(a, b, c);
+//diferencia_simetrica_para_M(a, b, c);
 
 	// Limpiar la pantalla y mostrar el nuevo contenido de 'c'.
 	Canvas->Brush->Color = clBtnFace;
@@ -215,5 +260,6 @@ diferencia_simetrica_para_M(a, b, c);
 	c->imprimir(this->Color, Canvas);
 }
 //---------------------------------------------------------------------------
+
 
 

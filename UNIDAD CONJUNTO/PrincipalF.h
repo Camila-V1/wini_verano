@@ -13,6 +13,7 @@
 #include "UL_Coonjunto.h"
 #include "UC_Conjunto.h"
 #include "UPtr_conjunto.h"
+#include "UPtr_conjunto.h"
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
@@ -61,9 +62,9 @@ public:		// User declarations
  Lista * l;     //memoria
 //ptrlista *    l ;  //puntero
  //Vlista *l  ;       //vector
-	conjuntoM* a;
-   conjuntoM* c;
-   conjuntoM* b;
+	ptr_Clista* a;
+   ptr_Clista* c;
+   ptr_Clista* b;
 	   //	conjuntolista* a;
   // conjuntolista* c;
   // conjuntolista* b;

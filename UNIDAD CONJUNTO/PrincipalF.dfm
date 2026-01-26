@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 750
+  ClientHeight = 884
   ClientWidth = 1164
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -13,8 +13,8 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 12
   object Button1: TButton
-    Left = 19
-    Top = 26
+    Left = 4
+    Top = 818
     Width = 71
     Height = 20
     Margins.Left = 2
@@ -26,8 +26,8 @@ object Form1: TForm1
     OnClick = Button1Click
   end
   object Button2: TButton
-    Left = 19
-    Top = 50
+    Left = 4
+    Top = 842
     Width = 71
     Height = 20
     Margins.Left = 2
@@ -39,8 +39,8 @@ object Form1: TForm1
     OnClick = Button2Click
   end
   object Button3: TButton
-    Left = 19
-    Top = 75
+    Left = 4
+    Top = 867
     Width = 71
     Height = 20
     Margins.Left = 2
@@ -52,8 +52,8 @@ object Form1: TForm1
     OnClick = Button3Click
   end
   object Button4: TButton
-    Left = 19
-    Top = 100
+    Left = 4
+    Top = 892
     Width = 71
     Height = 20
     Margins.Left = 2
@@ -65,8 +65,8 @@ object Form1: TForm1
     OnClick = Button4Click
   end
   object Button5: TButton
-    Left = 19
-    Top = 125
+    Left = 4
+    Top = 917
     Width = 71
     Height = 20
     Margins.Left = 2
@@ -78,8 +78,8 @@ object Form1: TForm1
     OnClick = Button5Click
   end
   object Edit1: TEdit
-    Left = 95
-    Top = 53
+    Left = 80
+    Top = 845
     Width = 142
     Height = 20
     Margins.Left = 2
@@ -90,8 +90,8 @@ object Form1: TForm1
     Text = 'hola,como,estas'
   end
   object Edit2: TEdit
-    Left = 102
-    Top = 76
+    Left = 87
+    Top = 868
     Width = 97
     Height = 20
     Margins.Left = 2
@@ -102,8 +102,8 @@ object Form1: TForm1
     Text = '0'
   end
   object Edit3: TEdit
-    Left = 102
-    Top = 101
+    Left = 87
+    Top = 893
     Width = 40
     Height = 20
     Margins.Left = 2
@@ -114,8 +114,8 @@ object Form1: TForm1
     Text = '0'
   end
   object Edit4: TEdit
-    Left = 160
-    Top = 101
+    Left = 145
+    Top = 893
     Width = 52
     Height = 20
     Margins.Left = 2
@@ -126,8 +126,8 @@ object Form1: TForm1
     Text = '11'
   end
   object Edit5: TEdit
-    Left = 102
-    Top = 124
+    Left = 87
+    Top = 916
     Width = 40
     Height = 20
     Margins.Left = 2
@@ -138,8 +138,8 @@ object Form1: TForm1
     Text = '0'
   end
   object Edit6: TEdit
-    Left = 160
-    Top = 126
+    Left = 145
+    Top = 918
     Width = 65
     Height = 20
     Margins.Left = 2
@@ -150,8 +150,8 @@ object Form1: TForm1
     Text = '->como'
   end
   object Edit7: TEdit
-    Left = 243
-    Top = 126
+    Left = 228
+    Top = 918
     Width = 46
     Height = 20
     Margins.Left = 2
@@ -249,8 +249,8 @@ object Form1: TForm1
     Text = 'a'
   end
   object Button17: TButton
-    Left = 19
-    Top = 518
+    Left = 8
+    Top = 788
     Width = 75
     Height = 25
     Caption = 'complemento'

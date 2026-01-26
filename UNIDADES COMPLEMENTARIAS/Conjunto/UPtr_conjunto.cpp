@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------------
+﻿//---------------------------------------------------------------------------
 
 #pragma hdrstop
 
@@ -156,7 +156,7 @@ int TamanoCeldaY = 35;
 					Pintado(posX,posY,",",FormColor,Canvas);
 					posX+=40;
 				}
-				// Imprimimos el �ltimo elemento
+				// Imprimimos el último elemento
 
 				x = x->sig;
 
@@ -171,4 +171,64 @@ int TamanoCeldaY = 35;
 int ptr_Clista::primero(){
 	return ptrConj->dato;
 
+}
+
+void ptr_Clista::mostrarEnCirculo(int centerX, int centerY, int radio, TColor color, TCanvas *Canvas) {
+    // 1. DIBUJAR EL CÍRCULO PRINCIPAL (Fondo)
+    Canvas->Pen->Color = clBlack; // Borde negro
+    Canvas->Brush->Color = color; // Color de relleno del círculo
+    // Ellipse dibuja usando las coordenadas de una caja (x1, y1, x2, y2)
+    Canvas->Ellipse(centerX - radio, centerY - radio, centerX + radio, centerY + radio);
+
+    // Obtener la cantidad de elementos
+    int N = this->cardinal();
+
+    // Configuración para el texto
+    Canvas->Brush->Style = bsClear; // Fondo transparente para que no tape el color del círculo
+    Canvas->Font->Color = clBlack;
+
+    if (N == 0) {
+        String msj = "Vacio";
+        int w = Canvas->TextWidth(msj);
+        int h = Canvas->TextHeight(msj);
+        Canvas->TextOutW(centerX - (w/2), centerY - (h/2), msj);
+        Canvas->Brush->Style = bsSolid; // Restaurar
+        return;
+    }
+
+    // 2. CALCULAR POSICIONES DE LOS ELEMENTOS
+    // Dividimos 2*PI radianes entre el número de elementos
+    double anguloPaso = 2 * M_PI / N;
+
+    // El radio donde se ubicará el texto será un poco menor al radio del círculo
+    // para que los números queden por dentro del borde.
+    int radioTexto = radio - 20;
+
+    NodoConj* aux = ptrConj;
+    int i = 0;
+
+    // Recorremos la lista
+    while (aux != NULL) {
+        double angulo = i * anguloPaso;
+
+        // FÓRMULA POLAR A CARTESIANA:
+        // x = cx + r * cos(θ)
+        // y = cy + r * sin(θ)
+        int px = centerX + radioTexto * cos(angulo);
+        int py = centerY + radioTexto * sin(angulo);
+
+        // Obtenemos el texto y sus dimensiones para centrarlo exactamente en el punto
+        String texto = IntToStr(aux->dato);
+        int anchoTexto = Canvas->TextWidth(texto);
+        int altoTexto = Canvas->TextHeight(texto);
+
+        // 3. DIBUJAR EL NÚMERO
+        Canvas->TextOutW(px - (anchoTexto / 2), py - (altoTexto / 2), texto);
+
+        aux = aux->sig;
+        i++;
+    }
+
+    // Restaurar el estilo del pincel
+    Canvas->Brush->Style = bsSolid;
 }

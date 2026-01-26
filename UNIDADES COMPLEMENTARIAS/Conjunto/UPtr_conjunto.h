@@ -5,7 +5,7 @@
 #include "UPlista.h"
 #define UPlistaH
 //---------------------------------------------------------------------------
-
+#include <cmath> // Necesario para sin(), cos() y M_PI
 using namespace std;
 
 //defino a direccionL como un struct
@@ -33,6 +33,7 @@ class ptr_Clista{
      int primero();
   int elemento(int pos) ;
 	void imprimir(TColor FormColor, TCanvas *Canvas);
+   void mostrarEnCirculo(int centerX, int centerY, int radio, TColor color, TCanvas *Canvas);
 	 void Pintado(int posX, int posY, String cad, TColor color, TCanvas *Canvas);
 
 };
