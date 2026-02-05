@@ -88,3 +88,11 @@ namespace Uplistasp {
         RegisterComponents(L"WiniEstructuras", classes, 0);
     }
 }
+// -----------------------------------------------------------
+// Notificación de componentes (necesario porque lo declaramos en el .h)
+// -----------------------------------------------------------
+void __fastcall TPilaP::Notification(TComponent* AComponent, TOperation Operation)
+{
+    // Llamamos al método de la clase padre para que haga lo que tenga que hacer
+    TComponent::Notification(AComponent, Operation);
+}

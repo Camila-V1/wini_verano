@@ -5,6 +5,14 @@
 #include "UC_memoria.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
+
+colaM::colaM() {
+ ini=-1;
+ longitud=0;
+ fin=-1;
+ Cm= NULL;
+}
+
 colaM::colaM(CSmemoria* m) {
  ini=-1;
  longitud=0;
@@ -45,16 +53,14 @@ void colaM::Sacar(int &e){
 if (vacia()==false) {
              return Cm->obtenerDato(ini,"->elemento") ;
 }
+return -1;  // Valor por defecto si estÃ¡ vacÃ­a
 	  }
 
       int colaM::ultimoElemento() {
 	if (!vacia()) {
         return Cm->obtenerDato(fin, "->elemento");
     }
-    else {
-        // Aquí puedes manejar el caso cuando la cola está vacía
-        // Por ejemplo, puedes lanzar una excepción o devolver un valor especial
-    }
+    return -1;  // Valor por defecto si estÃ¡ vacÃ­a
 }
 void colaM::MeterAlPrincipio(int e) {
     int aux = Cm->new_espacio("elemento,sig");
@@ -75,7 +81,7 @@ void colaM::SacarUltimo(int &e) {
             Cm->Delete_espacio(fin);
             ini = fin = -1;
         } else {
-            // Si hay más de un elemento en la cola
+            // Si hay mï¿½s de un elemento en la cola
             int x = ini;
             while (Cm->obtenerDato(x, "->sig") != fin) {
                 x = Cm->obtenerDato(x, "->sig");
@@ -86,8 +92,8 @@ void colaM::SacarUltimo(int &e) {
         }
     }
     else {
-        // Aquí puedes manejar el caso cuando la cola está vacía
-        // Por ejemplo, puedes lanzar una excepción o devolver un valor especial
+        // Aquï¿½ puedes manejar el caso cuando la cola estï¿½ vacï¿½a
+        // Por ejemplo, puedes lanzar una excepciï¿½n o devolver un valor especial
     }
 }
 

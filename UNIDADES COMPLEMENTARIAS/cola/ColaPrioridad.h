@@ -2,9 +2,10 @@
 #ifndef ColaPrioridadH
 #define ColaPrioridadH
 #include <vcl.h>
+#include "UC_memoria.h"  // Usamos cola con memoria
 //---------------------------------------------------------------------------
-// Usamos el selector en lugar de un tipo fijo
-#include "..\..\JUEGO\SeleccionCola.h"
+// Usamos colaM en lugar de un tipo fijo
+typedef colaM TCola;
 
 const int MAXP = 10;
 

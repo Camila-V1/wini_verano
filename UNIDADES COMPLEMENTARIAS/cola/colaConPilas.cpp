@@ -7,7 +7,7 @@ colaConPilas::colaConPilas() {
 }
 
 bool colaConPilas::vacia() {
-	return cBJR->Vacia();
+	return cBJR->vacio();
 }
 
 void colaConPilas::meter(int valor) {
@@ -15,13 +15,13 @@ void colaConPilas::meter(int valor) {
 }
 
 bool colaConPilas::sacar(int& valor) {
-    if (cBJR->Vacia()) return false;
+	if (cBJR->vacio()) return false;
 
     pilav aux;
     int temp;
 
     // Paso 1: pasar todo a auxiliar
-    while (!cBJR->Vacia()) {
+	while (!cBJR->vacio()) {
         cBJR->Sacar(temp);
         aux.Meter(temp);
     }
@@ -31,7 +31,7 @@ bool colaConPilas::sacar(int& valor) {
     valor = temp;
 
     // Paso 3: devolver lo restante a cBJR
-    while (!aux.Vacia()) {
+	while (!aux.vacio()) {
         aux.Sacar(temp);
         cBJR->Meter(temp);
     }
@@ -59,7 +59,7 @@ void colaConPilas::imprimir(TColor color, TCanvas* canvas) {
     canvas->Brush->Color = color;
     canvas->TextOutW(xInicio, y, "Cola: " + representacion);
 
-	if (!cBJR->Vacia()) {
+	if (!cBJR->vacio()) {
         canvas->TextOutW(xInicio - 80, y + 20, "Final ->");
         canvas->TextOutW(xInicio + representacion.Length() * 7 + 40, y + 20, "<- Frente");
     } else {

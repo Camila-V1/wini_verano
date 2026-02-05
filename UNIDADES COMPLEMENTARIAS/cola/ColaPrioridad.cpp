@@ -21,7 +21,7 @@ bool ColaPri::vacia() {
 
 int ColaPri::primero() {
     for (int i = 0; i < MAXP; i++) {
-        if (!vc[i].vacia()) return vc[i].frente(); // Devuelve el valor
+        if (!vc[i].vacia()) return vc[i].colaprimero(); // Devuelve el valor
     }
     return -1;
 }

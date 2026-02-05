@@ -21,7 +21,7 @@
                 fin++;
                 V[fin] = e;
             }
-            // Aquí puedes manejar el caso cuando la cola está llena
+            // Aquï¿½ puedes manejar el caso cuando la cola estï¿½ llena
         }
 
 		void colaV1:: Sacar(int &e) {
@@ -29,14 +29,14 @@
                 e = V[ini];
 				ini++;
             }
-            // Aquí puedes manejar el caso cuando la cola está vacía
+            // Aquï¿½ puedes manejar el caso cuando la cola estï¿½ vacï¿½a
         }
 
 		int colaV1:: primero() {
 			if (!vacia()) {
                 return V[ini];
             }
-            // Aquí puedes manejar el caso cuando la cola está vacía
+            return -1;  // Valor por defecto si estÃ¡ vacÃ­a
 		}
 
 void colaV1::imprimir(TColor FormColor, TCanvas *Canvas) {
@@ -56,13 +56,13 @@ void colaV1::imprimir(TColor FormColor, TCanvas *Canvas) {
             TRect rect(posX, posY, posX + TamanoCeldaX, posY + TamanoCeldaY);
             Canvas->Brush->Color = clWhite;  // Color de fondo de las celdas
 			Canvas->FillRect(rect);
-			// Convierte el número a string y lo muestra
+			// Convierte el nï¿½mero a string y lo muestra
 			Canvas->TextOutW(posX, posY, IntToStr(V[i]));
-			posY += TamanoCeldaY;  // Mueve la posición verticalmente para el siguiente elemento
+			posY += TamanoCeldaY;  // Mueve la posiciï¿½n verticalmente para el siguiente elemento
 		}
 	} else {
-		// Si la cola está vacía
-		Canvas->TextOutW(posX, posY, "Cola vacía");
+		// Si la cola estï¿½ vacï¿½a
+		Canvas->TextOutW(posX, posY, "Cola vacï¿½a");
 	}
 }
 
