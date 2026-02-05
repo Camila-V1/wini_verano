@@ -3,8 +3,6 @@
 #include <vcl.h> // Asegurate que tenga esta
 
 // ESTA LINEA ES LA CLAVE. SI NO ESTÁ, EL COMPONENTE NO EXISTE.
-USEUNIT("UP_listasP.cpp");
-
 #pragma package(smart_init)
 
 //---------------------------------------------------------------------------

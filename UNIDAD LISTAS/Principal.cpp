@@ -12,6 +12,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 	{
 		Application->Initialize();
 		Application->MainFormOnTaskBar = true;
+		// Aquí estaba el error grave:
 		Application->CreateForm(__classid(TForm1), &Form1);
 		Application->Run();
 	}

@@ -12,6 +12,7 @@
 #include "UCSLista.h"
 #include "UPlista.h"
 #include "UP_listasP.h"
+#include "UP_pilaV.h"
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
@@ -38,6 +39,7 @@ __published:	// IDE-managed Components
 	TEdit *Edit10;
 	TPilaP *PilaP1;
 	TButton *Button11;
+	TPilaV *PilaV1;
 	void __fastcall Button1Click(TObject *Sender);
 	void __fastcall Button2Click(TObject *Sender);
 	void __fastcall Button3Click(TObject *Sender);
@@ -48,6 +50,7 @@ __published:	// IDE-managed Components
 	void __fastcall Button8Click(TObject *Sender);
 	void __fastcall Button9Click(TObject *Sender);
 	void __fastcall Button10Click(TObject *Sender);
+	void __fastcall Button11Click(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
   //-----------------Memoria-------------------//

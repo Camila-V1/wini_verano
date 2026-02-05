@@ -5,6 +5,7 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma link "UP_listasP"
+#pragma link "UP_pilaV"
 #pragma resource "*.dfm"
 TForm1 *Form1;
 //---------------------------------------------------------------------------
@@ -81,4 +82,11 @@ l->suprime(p);
 }
 //---------------------------------------------------------------------------
 
+
+void __fastcall TForm1::Button11Click(TObject *Sender)
+{
+PilaP1->Meter(2);
+PilaP1->imprimir(Form1->Color,Canvas);
+}
+//---------------------------------------------------------------------------
 

@@ -261,9 +261,14 @@ object Form1: TForm1
     Height = 25
     Caption = 'Button11'
     TabOrder = 20
+    OnClick = Button11Click
   end
   object PilaP1: TPilaP
     Left = 96
     Top = 472
+  end
+  object PilaV1: TPilaV
+    Left = 440
+    Top = 440
   end
 end
