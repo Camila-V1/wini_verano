@@ -81,18 +81,19 @@ void TPilaP::imprimir(TColor FormColor, TCanvas *Canvas) {
 // REGISTRO DEL COMPONENTE
 // -----------------------------------------------------------
 // Esto le dice a C++Builder dónde poner el componente
-namespace Uplistasp {
-    void __fastcall PACKAGE Register() {
-        TComponentClass classes[1] = {__classid(TPilaP)};
-        // "WiniEstructuras" será el nombre de la pestaña en la paleta
-        RegisterComponents(L"WiniEstructuras", classes, 0);
-    }
-}
 // -----------------------------------------------------------
-// Notificación de componentes (necesario porque lo declaramos en el .h)
+// REGISTRO DEL COMPONENTE
+// -----------------------------------------------------------
+// Al quitar el namespace, evitamos errores si el archivo cambia de nombre
+void __fastcall PACKAGE Register() {
+    TComponentClass classes[1] = {__classid(TPilaP)};
+    RegisterComponents(L"WiniEstructuras", classes, 0);
+}
+
+// -----------------------------------------------------------
+// Notificación de componentes
 // -----------------------------------------------------------
 void __fastcall TPilaP::Notification(TComponent* AComponent, TOperation Operation)
 {
-    // Llamamos al método de la clase padre para que haga lo que tenga que hacer
     TComponent::Notification(AComponent, Operation);
 }
