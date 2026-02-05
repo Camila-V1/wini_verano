@@ -254,4 +254,16 @@ object Form1: TForm1
     TabOrder = 19
     Text = 'Edit10'
   end
+  object Button11: TButton
+    Left = 640
+    Top = 464
+    Width = 75
+    Height = 25
+    Caption = 'Button11'
+    TabOrder = 20
+  end
+  object PilaP1: TPilaP
+    Left = 96
+    Top = 472
+  end
 end

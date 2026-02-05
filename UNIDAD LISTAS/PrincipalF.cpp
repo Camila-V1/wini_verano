@@ -4,6 +4,7 @@
 #include "PrincipalF.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
+#pragma link "UP_listasP"
 #pragma resource "*.dfm"
 TForm1 *Form1;
 //---------------------------------------------------------------------------
@@ -79,4 +80,5 @@ void __fastcall TForm1::Button10Click(TObject *Sender)
 l->suprime(p);
 }
 //---------------------------------------------------------------------------
+
 

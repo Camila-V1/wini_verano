@@ -11,6 +11,7 @@
 
 #include "UCSLista.h"
 #include "UPlista.h"
+#include "UP_listasP.h"
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
@@ -35,6 +36,8 @@ __published:	// IDE-managed Components
 	TEdit *Edit9;
 	TButton *Button10;
 	TEdit *Edit10;
+	TPilaP *PilaP1;
+	TButton *Button11;
 	void __fastcall Button1Click(TObject *Sender);
 	void __fastcall Button2Click(TObject *Sender);
 	void __fastcall Button3Click(TObject *Sender);
