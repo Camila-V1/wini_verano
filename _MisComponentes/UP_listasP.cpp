@@ -1,16 +1,18 @@
-﻿#pragma hdrstop
+#pragma hdrstop
 #include "UP_listasP.h"
 #pragma package(smart_init)
 
 // -----------------------------------------------------------
-// CONSTRUCTOR: Adaptado para componentes VCL
+// CONSTRUCTOR
 // -----------------------------------------------------------
 __fastcall TPilaP::TPilaP(TComponent* Owner) : TComponent(Owner) {
     ptrpi = NULL;
     cant = 0;
 }
 
-// DESTRUCTOR: Limpieza de memoria automática al cerrar el form
+// -----------------------------------------------------------
+// DESTRUCTOR
+// -----------------------------------------------------------
 __fastcall TPilaP::~TPilaP() {
     int temp;
     while (!vacio()) {
@@ -19,7 +21,7 @@ __fastcall TPilaP::~TPilaP() {
 }
 
 // -----------------------------------------------------------
-// TUS MÉTODOS (Lógica intacta)
+// M�TODOS DE LA PILA
 // -----------------------------------------------------------
 bool TPilaP::vacio() {
     return cant == 0;
@@ -51,49 +53,58 @@ int TPilaP::cima() {
 }
 
 // -----------------------------------------------------------
-// TU MÉTODO DE PINTADO (Simplificado para el ejemplo)
+// DIBUJO (Con Cajas y Flechas)
 // -----------------------------------------------------------
 void Pintado(int posX, int posY, String cad, TColor color, TCanvas *Canvas){
     int TamanoCeldaX = 80;
     int TamanoCeldaY = 35;
-
     TRect rect(posX, posY, posX + TamanoCeldaX, posY + TamanoCeldaY);
+
     Canvas->Brush->Color = color;
     Canvas->FillRect(rect);
-
-    // CAMBIO AQUÍ: Usa TextOut en lugar de TextOutW
-    Canvas->TextOut(posX, posY + 3, cad);
+    Canvas->TextOut(posX + 10, posY + 8, cad);
 }
 
 void TPilaP::imprimir(TColor FormColor, TCanvas *Canvas) {
-    // ... (Pega aquí tu lógica de imprimir exacta) ...
-    // Solo asegúrate de llamar a Pintado correctamente.
-    // Ejemplo rápido basado en tu código:
-    int posX = 100; int posY = 100;
+    int posX = 100;
+    int posY = 100;
+    int auxX = posX;
+
     if (!vacio()) {
-        Pintado(posX, posY, "Cima: " + IntToStr(ptrpi->dato), FormColor, Canvas);
+        Pintado(posX, posY, "Pila", FormColor, Canvas);
+        posX = auxX;
+        posY += 35; // Bajamos una l�nea
+
+        Nodopi* x = ptrpi;
+        Pintado(posX, posY, "Tope", clSilver, Canvas);
+        posX += 80;
+
+        while (x != NULL) {
+            Pintado(posX, posY, IntToStr(x->dato), FormColor, Canvas);
+            posX += 80;
+            x = x->sig;
+            if (x != NULL) {
+                Canvas->TextOut(posX, posY + 10, "->");
+                posX += 30;
+            }
+        }
+        Canvas->TextOut(posX, posY + 10, "-> NULL");
     } else {
         Pintado(posX, posY, "Pila Vacia", FormColor, Canvas);
     }
 }
 
 // -----------------------------------------------------------
-// REGISTRO DEL COMPONENTE
-// -----------------------------------------------------------
-// Esto le dice a C++Builder dónde poner el componente
-// -----------------------------------------------------------
-// REGISTRO DEL COMPONENTE
-// -----------------------------------------------------------
-// Al quitar el namespace, evitamos errores si el archivo cambia de nombre
-void __fastcall PACKAGE Register() {
-    TComponentClass classes[1] = {__classid(TPilaP)};
-    RegisterComponents(L"WiniEstructuras", classes, 0);
-}
-
-// -----------------------------------------------------------
-// Notificación de componentes
+// NOTIFICACI�N (Soluciona el error Unresolved External)
 // -----------------------------------------------------------
 void __fastcall TPilaP::Notification(TComponent* AComponent, TOperation Operation)
 {
     TComponent::Notification(AComponent, Operation);
+}
+
+namespace Up_listasp {
+    void __fastcall PACKAGE Register() {
+        TComponentClass classes[1] = {__classid(TPilaP)};
+        RegisterComponents(L"Wini", classes, 0);
+    }
 }
