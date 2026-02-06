@@ -1,8 +1,13 @@
 #include <System.hpp>
 #pragma hdrstop
-#include <vcl.h> // Asegurate que tenga esta
+#include <vcl.h>
 
-// ESTA LINEA ES LA CLAVE. SI NO ESTÁ, EL COMPONENTE NO EXISTE.
+// ---------------------------------------------------------
+// LISTA DE ASISTENCIA (Tienen que estar todos aquí)
+// ---------------------------------------------------------
+USEUNIT("UP_listasP.cpp");
+USEUNIT("UP_pilaV.cpp");
+USEUNIT("Pilaw2.cpp");
 #pragma package(smart_init)
 
 //---------------------------------------------------------------------------

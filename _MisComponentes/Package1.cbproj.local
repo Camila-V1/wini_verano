@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2026/02/05 23:22:57.811,=rtl.bpi</Transaction>
+    <Transaction>2026/02/05 23:22:57.821,=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Package1PCH1.h</Transaction>
+    <Transaction>2026/02/05 23:23:15.318,C:\Users\asus\Documents\camila\wini_verano\_MisComponentes\PaqueteMario.h=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Package1PCH1.h</Transaction>
+    <Transaction>2026/02/05 23:23:16.631,C:\Users\asus\Documents\camila\wini_verano\_MisComponentes\Package1.cbproj=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Package1.cbproj</Transaction>
+    <Transaction>2026/02/05 23:23:41.804,=C:\Users\asus\Documents\camila\wini_verano\_MisComponentes\pilaW.cpp</Transaction>
+    <Transaction>2026/02/05 23:23:41.843,=vcl.bpi</Transaction>
+    <Transaction>2026/02/05 23:27:52.080,=C:\Users\asus\Documents\camila\wini_verano\_MisComponentes\pilaw2.cpp</Transaction>
+    <Transaction>2026/02/05 23:28:45.474,C:\Users\asus\Documents\camila\wini_verano\_MisComponentes\pilaw2.cpp=</Transaction>
+  </Transactions>
+</BorlandProject>

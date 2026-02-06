@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2026/02/04 23:54:00.000.674,=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2026/02/04 23:54:01.000.271,=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2026/02/05 23:41:51.687,=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2026/02/05 23:41:52.021,=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2026/02/05 23:42:08.172,C:\Users\asus\Documents\camila\wini_verano\Prueba\Unit1.cpp=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2026/02/05 23:42:08.172,C:\Users\asus\Documents\camila\wini_verano\Prueba\Unit1.dfm=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2026/02/05 23:42:08.172,C:\Users\asus\Documents\camila\wini_verano\Prueba\Unit1.h=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>2026/02/05 23:42:09.455,C:\Users\asus\Documents\camila\wini_verano\Prueba\Project1PCH1.h=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2026/02/05 23:42:10.592,C:\Users\asus\Documents\camila\wini_verano\Prueba\Project1.cbproj=C:\Users\asus\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>2026/02/05 23:42:23.017,=C:\Users\asus\Documents\camila\wini_verano\_MisComponentes\pilaw2.cpp</Transaction>
+  </Transactions>
+</BorlandProject>
